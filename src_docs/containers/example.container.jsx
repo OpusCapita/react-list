@@ -65,7 +65,7 @@ export default class ExampleContainer extends React.PureComponent {
             <Panel>
               <ListContainer>
                 <Switch>
-                  <Route path="/" render={() => <Simple key="1" {...this.state} />} />
+                  <Route path="/" exact render={() => <Simple key="1" {...this.state} />} />
                   <Route path="/columns" render={() => <Column key="2" {...this.state} />} />
                   <Route path="/columns-header" render={() => <Column key="3" showColumnHeader {...this.state} />} />
                   <Route path="/fixed-height" render={() => <Simple key="4" height={400} {...this.state} />} />
