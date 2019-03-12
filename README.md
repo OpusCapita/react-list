@@ -16,7 +16,7 @@ npm install @opuscapita/react-list
 ```
 
 ### Demo
-View the [DEMO](https://opuscapita.github.io/react-list)
+View the [DEMO](https://opuscapita.github.io/react-list/)
 
 ### Builds
 #### UMD
