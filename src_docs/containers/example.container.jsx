@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { Switch, Route, Link } from 'react-router-dom';
 import { Panel, Grid, Row, Col, Checkbox } from 'react-bootstrap';
+import { theme } from '@opuscapita/oc-cm-common-layouts';
 import GithubLogo from '../images/logo-github.svg';
 import packageConfig from '../../package.json';
 import Simple from '../components/simple.component';
@@ -63,15 +64,17 @@ export default class ExampleContainer extends React.PureComponent {
           </Col>
           <Col xs={8} md={10}>
             <Panel>
-              <ListContainer>
-                <Switch>
-                  <Route path="/" exact render={() => <Simple key="1" {...this.state} />} />
-                  <Route path="/columns" render={() => <Column key="2" {...this.state} />} />
-                  <Route path="/columns-header" render={() => <Column key="3" showColumnHeader {...this.state} />} />
-                  <Route path="/fixed-height" render={() => <Simple key="4" height={400} {...this.state} />} />
-                  <Route path="/fixed-size" render={() => <Simple key="5" height={400} width={400} {...this.state} />} />
-                </Switch>
-              </ListContainer>
+              <ThemeProvider theme={theme}>
+                <ListContainer>
+                  <Switch>
+                    <Route path="/" exact render={() => <Simple key="1" {...this.state} />} />
+                    <Route path="/columns" render={() => <Column key="2" {...this.state} />} />
+                    <Route path="/columns-header" render={() => <Column key="3" showColumnHeader {...this.state} />} />
+                    <Route path="/fixed-height" render={() => <Simple key="4" height={400} {...this.state} />} />
+                    <Route path="/fixed-size" render={() => <Simple key="5" height={400} width={400} {...this.state} />} />
+                  </Switch>
+                </ListContainer>
+              </ThemeProvider>
             </Panel>
           </Col>
         </Row>

@@ -34,6 +34,19 @@ export default class ColumnList extends React.PureComponent {
         columns={this.columns}
         items={this.items}
         {...this.props}
+        customTheme={{
+          colors: {
+            white: '#FFFFFF',
+            grey4: 'red',
+            grey5: '#E6E9EB',
+            grey6: '#D3DADE',
+            grey7: '#A4AFB6',
+            grey8: '#77818c',
+            grey9: '#67707C',
+            grey10: '#585F68',
+          },
+          halfGutterWidth: '0.5rem',
+        }}
       />
     );
   }

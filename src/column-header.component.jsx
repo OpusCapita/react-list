@@ -2,20 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Column from './column.component';
-import theme from './theme';
 
 const Header = styled.header`
   display: flex;
   height: ${props => props.height}px;
   font-weight: 600;
-  border-top: 1px solid ${theme.colors.grey7};
-  border-left: 1px solid ${theme.colors.grey7};
-  border-right: 1px solid ${theme.colors.grey7};
-  background: ${theme.colors.grey4};
+  border-top: 1px solid ${props => props.theme.colors.grey7};
+  border-left: 1px solid ${props => props.theme.colors.grey7};
+  border-right: 1px solid ${props => props.theme.colors.grey7};
+  background: ${props => props.theme.colors.grey4};
 `;
 
 const HeaderColumn = styled(Column)`
-  border-right: 1px solid ${theme.colors.grey7};
+  border-right: 1px solid ${props => props.theme.colors.grey7};
 `;
 
 export default class ColumnHeader extends React.PureComponent {
@@ -26,7 +25,7 @@ export default class ColumnHeader extends React.PureComponent {
     height: PropTypes.number.isRequired,
   }
 
-  static renderColumn = column => (
+  renderColumn = column => (
     <HeaderColumn
       key={column.valueKey}
       width={column.width || 200}
@@ -49,7 +48,7 @@ export default class ColumnHeader extends React.PureComponent {
         height={height}
       >
         {showIndex && <HeaderColumn width={30}>#</HeaderColumn>}
-        {columns && columns.map(ColumnHeader.renderColumn)}
+        {columns && columns.map(this.renderColumn)}
       </Header>
     );
   }

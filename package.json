@@ -51,6 +51,7 @@
     "@babel/preset-env": "7.3.4",
     "@babel/preset-react": "7.0.0",
     "@babel/register": "7.0.0",
+    "@opuscapita/oc-cm-common-layouts": "3.0.0",
     "@opuscapita/oc-cm-common-styles": "3.0.0",
     "autoprefixer": "9.4.10",
     "babel-eslint": "10.0.1",

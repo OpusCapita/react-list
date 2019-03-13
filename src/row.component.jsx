@@ -2,16 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Column from './column.component';
-import theme from './theme';
 
 const Row = styled.div`
   display: flex;
   height: ${props => (props.height - 1)}px;
   cursor: pointer;
   align-items: center;
-  background: ${props => (props.selected ? theme.colors.grey5 : theme.colors.white)};
+  background: ${props => (props.selected ? props.theme.colors.grey5 : props.theme.colors.white)};
   &:hover {
-    background: ${theme.colors.grey4};
+    background: ${props => props.theme.colors.grey4};
   }
   user-select: none;
 `;

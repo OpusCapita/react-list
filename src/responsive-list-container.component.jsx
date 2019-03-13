@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Infinite from 'react-infinite';
 import { debounce } from 'debounce';
-import theme from './theme';
 
 const ListContainer = styled.div`
   height: ${props => `calc(100% - ${props.headerHeight}px)`};
   width: 100%;
-  border: 1px solid ${theme.colors.grey7};
+  border: 1px solid ${props => props.theme.colors.grey7};
   padding: 0;
   margin: 0;
 `;
@@ -18,7 +17,7 @@ const ItemContainer = styled.div`
   min-height: 0px;
   min-width: 100%;
   overflow: hidden;
-  border-bottom: 1px solid ${theme.colors.grey6};
+  border-bottom: 1px solid ${props => props.theme.colors.grey6};
   padding: 0;
   margin: 0;
 `;

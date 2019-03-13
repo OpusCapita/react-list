@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { ThemeProvider, withTheme } from 'styled-components';
 import ResponsiveListContainer from './responsive-list-container.component';
 import ColumnHeader from './column-header.component';
 import Row from './row.component';
+import { themeDefaults, themeShape } from './theme';
 
 const ListContainer = styled.div`
   height: ${props => (props.height === 'auto' ? '100%' : `${props.height}px`)};
   width: ${props => (props.width === 'auto' ? '100%' : `${props.width}px`)};
 `;
 
-export default class List extends React.PureComponent {
+export default
+@withTheme
+class List extends React.PureComponent {
   static propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     id: PropTypes.string,
@@ -29,6 +32,8 @@ export default class List extends React.PureComponent {
     showColumnHeader: PropTypes.bool,
     columns: PropTypes.arrayOf(PropTypes.shape({})),
     columnHeaderHeight: PropTypes.number,
+    customTheme: themeShape, // overrided theme
+    theme: themeShape, // theme from styled-components ThemeProvider
   }
 
   static defaultProps = {
@@ -42,6 +47,8 @@ export default class List extends React.PureComponent {
     showIndex: false,
     showColumnHeader: false,
     columnHeaderHeight: 40,
+    customTheme: null,
+    theme: null,
   }
 
   renderRow = (item, rowIndex) => {
@@ -65,7 +72,7 @@ export default class List extends React.PureComponent {
     );
   }
 
-  render() {
+  renderList = () => {
     const {
       id,
       columns,
@@ -90,5 +97,22 @@ export default class List extends React.PureComponent {
         </ResponsiveListContainer>
       </ListContainer>
     );
+  }
+
+  renderWithTheme = themeObj => (
+    <ThemeProvider theme={themeObj}>
+      {this.renderList()}
+    </ThemeProvider>
+  );
+
+  render() {
+    const { customTheme, theme } = this.props;
+    if (customTheme) {
+      return this.renderWithTheme(customTheme); // override with custom theme
+    }
+    if (!theme) {
+      return this.renderWithTheme(themeDefaults); // use defaults if no theme is provided
+    }
+    return this.renderList(); // ThemeProvider is found!
   }
 }

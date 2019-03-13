@@ -18,6 +18,12 @@ npm install @opuscapita/react-list
 ### Demo
 View the [DEMO](https://opuscapita.github.io/react-list/)
 
+### Change log
+View the [Change log](CHANGELOG.md)
+
+### Migrate guide
+View the [Migrate guide](MIGRATEGUIDE.md) between major versions
+
 ### Builds
 #### UMD
 The default build with compiled styles in the .js file. Also minified version available in the lib/umd directory.
@@ -41,12 +47,18 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | columnHeaderHeight       | number                  | 40                                           | Height of the column header in pixels       |
 | showColumnHeader         | boolean                 | false                                        | Option to show column header                |
 | showIndex                | boolean                 | false                                        | Option to show index number as first column |
+| customTheme              | object                  | [themeDefaults](src/theme.js)                | Override theme                              |
 
 #### `column` object attributes
 | Name            | Type             | Default | Description                            |
 | --------------- | ---------------- | ------- | -------------------------------------- |
 | valueKey        | string           | 'value' | Value key in the list                  |
 | valueTitle      | array of strings | 'Value' | Title text to display in column header |
+
+### Theme
+You can use styled-components ThemeProvider to provide theme.
+If no ThemeProvider is found, default theme object is used.
+You can always override theme with customTheme prop.
 
 ### Code example
 ```jsx
