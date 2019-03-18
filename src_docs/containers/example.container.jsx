@@ -19,8 +19,21 @@ const ListContainer = styled.div`
 
 export default class ExampleContainer extends React.PureComponent {
   state = {
-    showIndex: false,
+    isIndexColumnVisible: false,
+    isColumnHeaderVisible: false,
+    isSearchable: false,
+    isSelectAllVisible: false,
+    isShowOnlySelectedVisible: false,
   }
+
+  renderCheckbox = attr => (
+    <Checkbox
+      inline
+      onClick={() => this.setState({ [attr]: !this.state[attr] })}
+    >
+      {attr}
+    </Checkbox>
+  )
 
   render() {
     return (
@@ -32,11 +45,17 @@ export default class ExampleContainer extends React.PureComponent {
             </h3>
           </Col>
           <Col xs={5} md={8} style={{ marginTop: '5px' }}>
-            <Checkbox
-              onClick={() => this.setState({ showIndex: !this.state.showIndex })}
-            >
-              Show index
-            </Checkbox>
+            {this.renderCheckbox('isIndexColumnVisible')}
+            {' '}
+            {this.renderCheckbox('isColumnHeaderVisible')}
+            {' '}
+            {this.renderCheckbox('isSearchable')}
+            {' '}
+            {this.renderCheckbox('isSelectable')}
+            {' '}
+            {this.renderCheckbox('isSelectAllVisible')}
+            {' '}
+            {this.renderCheckbox('isShowOnlySelectedVisible')}
           </Col>
           <Col xs={2}>
             <a
@@ -54,8 +73,6 @@ export default class ExampleContainer extends React.PureComponent {
               <br />
               <Link to="/columns" href="/columns">Columns</Link>
               <br />
-              <Link to="/columns-header" href="/columns-header">Columns with header</Link>
-              <br />
               <Link to="/fixed-height" href="/fixed-height">Fixed height</Link>
               <br />
               <Link to="/fixed-size" href="/fixed-size">Fixed width and height</Link>
@@ -69,7 +86,6 @@ export default class ExampleContainer extends React.PureComponent {
                   <Switch>
                     <Route path="/" exact render={() => <Simple key="1" {...this.state} />} />
                     <Route path="/columns" render={() => <Column key="2" {...this.state} />} />
-                    <Route path="/columns-header" render={() => <Column key="3" showColumnHeader {...this.state} />} />
                     <Route path="/fixed-height" render={() => <Simple key="4" height={400} {...this.state} />} />
                     <Route path="/fixed-size" render={() => <Simple key="5" height={400} width={400} {...this.state} />} />
                   </Switch>

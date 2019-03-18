@@ -109,7 +109,10 @@
     "write-file-webpack-plugin": "4.5.0"
   },
   "dependencies": {
+    "@opuscapita/react-checkbox": "1.4.2",
+    "@opuscapita/react-searchbar": "1.1.0",
     "debounce": "1.2.0",
+    "memoize-one": "5.0.0",
     "react-infinite": "0.13.0",
     "styled-components": "4.1.3"
   },

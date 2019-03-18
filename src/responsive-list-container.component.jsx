@@ -33,7 +33,8 @@ export default class ResponsiveListContainer extends React.PureComponent {
     itemHeight: PropTypes.number.isRequired,
     columns: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     columnHeaderHeight: PropTypes.number.isRequired,
-    showColumnHeader: PropTypes.bool.isRequired,
+    isHeaderVisible: PropTypes.bool.isRequired,
+    isColumnHeaderVisible: PropTypes.bool.isRequired,
   }
 
   constructor(props) {
@@ -51,6 +52,15 @@ export default class ResponsiveListContainer extends React.PureComponent {
       window.addEventListener('orientationchange', this.refreshElementHeights); // for mobile support
     }
     this.refreshElementHeights();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      (prevProps.isColumnHeaderVisible !== this.props.isColumnHeaderVisible) ||
+      (prevProps.isHeaderVisible !== this.props.isHeaderVisible)
+    ) {
+      this.refreshElementHeights();
+    }
   }
 
   componentWillUnmount() {
@@ -83,13 +93,15 @@ export default class ResponsiveListContainer extends React.PureComponent {
       columns,
       itemHeight,
       columnHeaderHeight,
-      showColumnHeader,
+      isHeaderVisible,
+      isColumnHeaderVisible,
       ...props
     } = this.props;
     const {
       listContainerHeight,
     } = this.state;
-    const headerHeight = showColumnHeader ? columnHeaderHeight : 0;
+    let headerHeight = isColumnHeaderVisible ? columnHeaderHeight : 0;
+    if (isHeaderVisible) headerHeight += 40;
     return (
       <ListContainer
         id={id}

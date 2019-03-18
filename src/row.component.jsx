@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Checkbox from '@opuscapita/react-checkbox';
 import Column from './column.component';
 
 const Row = styled.div`
@@ -27,8 +28,48 @@ export default class List extends React.PureComponent {
     item: PropTypes.shape({}).isRequired,
     itemHeight: PropTypes.number.isRequired,
     rowIndex: PropTypes.number.isRequired,
-    showIndex: PropTypes.bool.isRequired,
+    isIndexColumnVisible: PropTypes.bool.isRequired,
     columns: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    isSelected: PropTypes.bool.isRequired,
+    isSelectable: PropTypes.bool.isRequired,
+    onSelectChange: PropTypes.func.isRequired,
+  }
+
+  renderSelectColumn = () => {
+    const {
+      id,
+      isSelected,
+      onSelectChange,
+    } = this.props;
+    return (
+      <Column
+        id={`${id}-col-index`}
+        width={30}
+        alignment="flex-start"
+      >
+        <Checkbox
+          id={`${id}-selectitem`}
+          checked={isSelected}
+          onChange={onSelectChange}
+        />
+      </Column>
+    );
+  }
+
+  renderIndexColumn = () => {
+    const {
+      id,
+      rowIndex,
+    } = this.props;
+    return (
+      <Column
+        id={`${id}-col-index`}
+        width={30}
+        alignment="flex-start"
+      >
+        {rowIndex + 1}
+      </Column>
+    );
   }
 
   renderItemColumn = (column) => {
@@ -52,26 +93,16 @@ export default class List extends React.PureComponent {
 
   render() {
     const {
-      id,
-      showIndex,
+      isIndexColumnVisible,
       columns,
-      rowIndex,
       itemHeight,
+      isSelectable,
     } = this.props;
     return (
-      <Row
-        height={itemHeight}
-      >
-        {showIndex && (
-          <Column
-            id={`${id}-col-index`}
-            width={30}
-            alignment="flex-start"
-          >
-            {rowIndex + 1}
-          </Column>
-        )}
-        {!!columns && columns.map(this.renderItemColumn)}
+      <Row height={itemHeight}>
+        {isSelectable && this.renderSelectColumn()}
+        {isIndexColumnVisible && this.renderIndexColumn()}
+        {columns.map(this.renderItemColumn)}
       </Row>
     );
   }

@@ -4,7 +4,9 @@ import List from '../../src/index';
 export default class ColumnList extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      selectedItems: [],
+    };
     this.items = [
       { id: 1, name: 'Name1', address: 'Address1' },
       { id: 2, name: 'Name2', address: 'Address2' },
@@ -28,25 +30,21 @@ export default class ColumnList extends React.PureComponent {
     ];
   }
 
+  onSelectedChange = (selectedItems) => {
+    this.setState({ selectedItems });
+  }
+
   render() {
+    const {
+      selectedItems,
+    } = this.state;
     return (
       <List
         columns={this.columns}
         items={this.items}
+        selectedItems={selectedItems}
+        onSelectedChange={this.onSelectedChange}
         {...this.props}
-        customTheme={{
-          colors: {
-            white: '#FFFFFF',
-            grey4: 'red',
-            grey5: '#E6E9EB',
-            grey6: '#D3DADE',
-            grey7: '#A4AFB6',
-            grey8: '#77818c',
-            grey9: '#67707C',
-            grey10: '#585F68',
-          },
-          halfGutterWidth: '0.5rem',
-        }}
       />
     );
   }

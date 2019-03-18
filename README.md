@@ -34,20 +34,30 @@ Also you need to configure sass loader, since all the styles are in sass format.
 * Add [SASS loader](https://github.com/webpack-contrib/sass-loader) to support importing of SASS styles.
 
 ### API
-| Prop name                | Type                    | Default                                      | Description                                 |
-| ------------------------ | ----------------------- | -------------------------------------------- | ------------------------------------------- |
-| __items__                | array of item objects   | __required__                                 | Array of items in the list                  |
-| id                       | string                  | oc-react-list                                | Component base id                           |
-| className                | string                  |                                              | Component class                             |
-| columns                  | array of column objects | [{ valueKey: 'value', valueTitle: 'value' }] | Array of columns in the list                |
-| idKey                    | string                  | 'id'                                         | ID key of item data                         |
-| height                   | number or 'auto'        | 'auto'                                       | Height of the list in pixels                |
-| width                    | number or 'auto'        | 'auto'                                       | Width of the list in pixels                 |
-| itemHeight               | number                  | 40                                           | Height of the item in the list in pixels    |
-| columnHeaderHeight       | number                  | 40                                           | Height of the column header in pixels       |
-| showColumnHeader         | boolean                 | false                                        | Option to show column header                |
-| showIndex                | boolean                 | false                                        | Option to show index number as first column |
-| customTheme              | object                  | [themeDefaults](src/theme.js)                | Override theme                              |
+| Prop name                 | Type                    | Default / params                             | Description                                 |
+| ------------------------- | ----------------------- | -------------------------------------------- | ------------------------------------------- |
+| __items__                 | array of item objects   | __required__                                 | Array of items in the list                  |
+| id                        | string                  | oc-react-list                                | Component base id                           |
+| className                 | string                  |                                              | Component class                             |
+| columns                   | array of column objects | [{ valueKey: 'value', valueTitle: 'value' }] | Array of columns in the list                |
+| selectedItems             | array of id's           | []                                           | Array of selected item id's                 |
+| height                    | number or 'auto'        | 'auto'                                       | Height of the list in pixels                |
+| width                     | number or 'auto'        | 'auto'                                       | Width of the list in pixels                 |
+| itemHeight                | number                  | 40                                           | Height of the item in the list in pixels    |
+| columnHeaderHeight        | number                  | 40                                           | Height of the column header in pixels       |
+| idKey                     | string                  | 'id'                                         | ID key of item data                         |
+| translations              | array of objects        | { search: 'Search', selectAll: 'All', showOnlySelected: 'Show only selected' } | Translations |
+| customTheme               | object                  | [themeDefaults](src/theme.js)                | Override theme                              |
+| isSearchable              | boolean                 | false                                        | Is list searchable                          |
+| isSelectable              | boolean                 | false                                        | Is list selectable                          |
+| isSelectAllVisible        | boolean                 | false                                        | Is select all checkbox visible              |
+| isShowOnlySelectedVisible | boolean                 | false                                        | Is show only selected checkbox visible      |
+| isColumnHeaderVisible     | boolean                 | false                                        | Is column header visible                    |
+| isIndexColumnVisible      | boolean                 | false                                        | Is index column visible                     |
+| onSelectedChange          | function                | (selectedIds: array)                         | Callback for selected items change          |
+| onRowClick                | function                | (rowIndex: number, item: object)             | Callback for row click                      |
+| onRowDoubleClick          | function                | (rowIndex: number, item: object)             | Callback for row double click               |
+| onRowRightClick           | function                | (rowIndex: number, item: object)             | Callback for row right click                |
 
 #### `column` object attributes
 | Name            | Type             | Default | Description                            |
@@ -61,6 +71,8 @@ If no ThemeProvider is found, default theme object is used.
 You can always override theme with customTheme prop.
 
 ### Code example
+
+## Simple data
 ```jsx
 import React from 'react';
 import List from '@opuscapita/react-list';
@@ -74,6 +86,34 @@ export default class ReactView extends React.Component {
     ];
     return (
       <List
+        items={items}
+      />
+    );
+  }
+}
+```
+
+## Column list with custom ID field and column header visible
+```jsx
+import React from 'react';
+import List from '@opuscapita/react-list';
+
+export default class ReactView extends React.Component {
+  render() {
+    const columns = [
+      { valueKey: 'name', valueTitle: 'Item' },
+      { valueKey: 'price', valueTitle: 'Price' },
+      { valueKey: 'tax', valueTitle: 'Tax %' },
+    ];
+    const items = [
+      { itemId: 1, name: 'Valve', price: 15.99, tax: 24 },
+      { itemId: 2, name: 'Crankshaft', price: 359.99, tax: 24 },
+      { itemId: 3, name: 'Carburetor', price: 299.99, tax: 24 },
+    ];
+    return (
+      <List
+        showColumnHeader
+        columns={columns}
         items={items}
       />
     );
