@@ -9,11 +9,21 @@ const HeaderContainer = styled.div`
   height: 40px;
 `;
 
-const CheckboxContainer = styled.div`
+const SelectAllContainer = styled.div`
   flex: 0 0 auto;
   min-height: 40px;
   width: auto;
   padding-top: 5px;
+  padding-right: 10px;
+  padding-left: 6px;
+`;
+
+const ShowOnlySelectedContainer = styled.div`
+  flex: 0 0 auto;
+  min-height: 40px;
+  width: auto;
+  padding-top: 5px;
+  padding-left: 10px;
 `;
 
 const SearchContainer = styled.div`
@@ -58,14 +68,14 @@ export default class Header extends React.PureComponent {
       translations,
     } = this.props;
     return (
-      <CheckboxContainer style={{ paddingRight: '10px' }}>
+      <SelectAllContainer>
         <StyledCheckbox
           id={`${id}-selectall`}
           checked={isAllSelected}
           onChange={onSelectAllChange}
           label={translations.selectAll}
         />
-      </CheckboxContainer>
+      </SelectAllContainer>
     );
   }
 
@@ -96,14 +106,14 @@ export default class Header extends React.PureComponent {
       translations,
     } = this.props;
     return (
-      <CheckboxContainer style={{ paddingLeft: '10px' }}>
+      <ShowOnlySelectedContainer>
         <StyledCheckbox
           id={`${id}-showonlyselected`}
           checked={isShowOnlySelected}
           onChange={onShowOnlySelectedChange}
           label={translations.showOnlySelected}
         />
-      </CheckboxContainer>
+      </ShowOnlySelectedContainer>
     );
   }
 
