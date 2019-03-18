@@ -13,7 +13,7 @@ const packageName = packageConfig.name.replace('@opuscapita/', '');
 
 const ListContainer = styled.div`
   padding: 20px;
-  height: calc(100vh - 116px);
+  height: calc(100vh - 66px);
   overflow: auto;
 `;
 
@@ -25,6 +25,7 @@ export default class ExampleContainer extends React.PureComponent {
     isItemBorderVisible: true,
     isColumnHeaderVisible: false,
     isSearchable: false,
+    isSelectable: false,
     isSelectAllVisible: false,
     isShowOnlySelectedVisible: false,
   }

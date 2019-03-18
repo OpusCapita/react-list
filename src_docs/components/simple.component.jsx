@@ -1,4 +1,5 @@
 import React from 'react';
+import faker from 'faker';
 import List from '../../src/index';
 
 export default class SimpleList extends React.PureComponent {
@@ -7,23 +8,13 @@ export default class SimpleList extends React.PureComponent {
     this.state = {
       selectedItems: [],
     };
-    this.items = [
-      { id: 1, value: 'Name1' },
-      { id: 2, value: 'Name2' },
-      { id: 3, value: 'Name3' },
-      { id: 4, value: 'Name4' },
-      { id: 5, value: 'Name5' },
-      { id: 6, value: 'Name6' },
-      { id: 7, value: 'Name7' },
-      { id: 8, value: 'Name8' },
-      { id: 9, value: 'Name9' },
-      { id: 10, value: 'Name10' },
-      { id: 11, value: 'Name11' },
-      { id: 12, value: 'Name12' },
-      { id: 13, value: 'Name13' },
-      { id: 14, value: 'Name14' },
-      { id: 15, value: 'Name15' },
-    ];
+    this.items = [];
+    for (let i = 1; i <= 50; i += 1) {
+      this.items.push({
+        id: i,
+        value: faker.name.findName(),
+      });
+    }
   }
 
   onSelectedChange = (selectedItems) => {
