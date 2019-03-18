@@ -39,23 +39,10 @@ export default class ExampleContainer extends React.PureComponent {
     return (
       <Grid fluid>
         <Row>
-          <Col xs={5} md={2}>
+          <Col xs={10}>
             <h3 style={{ marginTop: '10px' }}>
               {packageDescription}
             </h3>
-          </Col>
-          <Col xs={5} md={8} style={{ marginTop: '5px' }}>
-            {this.renderCheckbox('isIndexColumnVisible')}
-            {' '}
-            {this.renderCheckbox('isColumnHeaderVisible')}
-            {' '}
-            {this.renderCheckbox('isSearchable')}
-            {' '}
-            {this.renderCheckbox('isSelectable')}
-            {' '}
-            {this.renderCheckbox('isSelectAllVisible')}
-            {' '}
-            {this.renderCheckbox('isShowOnlySelectedVisible')}
           </Col>
           <Col xs={2}>
             <a
@@ -77,6 +64,26 @@ export default class ExampleContainer extends React.PureComponent {
               <br />
               <Link to="/fixed-size" href="/fixed-size">Fixed width and height</Link>
               <br />
+            </Panel>
+            <Panel style={{ padding: '20px' }}>
+              <p>
+                {this.renderCheckbox('isIndexColumnVisible')}
+              </p>
+              <p>
+                {this.renderCheckbox('isColumnHeaderVisible')}
+              </p>
+              <p>
+                {this.renderCheckbox('isSearchable')}
+              </p>
+              <p>
+                {this.renderCheckbox('isSelectable')}
+              </p>
+              <p>
+                {this.renderCheckbox('isSelectAllVisible')}
+              </p>
+              <p>
+                {this.renderCheckbox('isShowOnlySelectedVisible')}
+              </p>
             </Panel>
           </Col>
           <Col xs={8} md={10}>
