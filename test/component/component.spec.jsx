@@ -3,11 +3,21 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 
-import Example from '../../src/index';
+import List from '../../src/index';
 
-describe('Example component', () => {
-  it('is rendered', () => {
-    const wrapper = mount(<Example />);
+describe('List component', () => {
+  const props = {
+    height: 400,
+    width: 400,
+    items: [
+      'item1',
+      'item2',
+      'item3',
+      'item4',
+    ],
+  };
+  it('is rendered'); /* , () => {
+    const wrapper = mount(<List {...props} />);
     expect(wrapper).to.exist;
-  });
+  }); */
 });

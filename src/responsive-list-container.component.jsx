@@ -35,6 +35,7 @@ export default class ResponsiveListContainer extends React.PureComponent {
     columnHeaderHeight: PropTypes.number.isRequired,
     isHeaderVisible: PropTypes.bool.isRequired,
     isColumnHeaderVisible: PropTypes.bool.isRequired,
+    reactInfiniteProps: PropTypes.shape({}).isRequired,
   }
 
   constructor(props) {
@@ -95,7 +96,7 @@ export default class ResponsiveListContainer extends React.PureComponent {
       columnHeaderHeight,
       isHeaderVisible,
       isColumnHeaderVisible,
-      ...props
+      reactInfiniteProps,
     } = this.props;
     const {
       listContainerHeight,
@@ -112,7 +113,7 @@ export default class ResponsiveListContainer extends React.PureComponent {
         <Infinite
           containerHeight={listContainerHeight}
           elementHeight={itemHeight}
-          {...props}
+          {...reactInfiniteProps}
         >
           { React.Children.map(children, this.renderItem()) }
         </Infinite>

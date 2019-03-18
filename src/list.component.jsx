@@ -46,6 +46,7 @@ class List extends React.PureComponent {
       showOnlySelected: PropTypes.string,
     }),
     customTheme: themeShape, // theme override
+    reactInfiniteProps: PropTypes.shape({}),
 
     // Booleans
     isSearchable: PropTypes.bool,
@@ -79,6 +80,7 @@ class List extends React.PureComponent {
       showOnlySelected: 'Show only selected',
     },
     customTheme: null,
+    reactInfiniteProps: {},
     isSearchable: false,
     isSelectable: false,
     isSelectAllVisible: false,
@@ -220,12 +222,14 @@ class List extends React.PureComponent {
   renderList = () => {
     const {
       id,
+      className,
       items,
       selectedItems,
       columns,
       isIndexColumnVisible,
       height,
       width,
+      itemHeight,
       columnHeaderHeight,
       isColumnHeaderVisible,
       isSearchable,
@@ -233,6 +237,7 @@ class List extends React.PureComponent {
       isSelectAllVisible,
       isShowOnlySelectedVisible,
       translations,
+      reactInfiniteProps,
     } = this.props;
     const {
       showOnlySelected,
@@ -246,7 +251,7 @@ class List extends React.PureComponent {
     );
     const isAllSelected = items.length > 0 && items.length === selectedItems.length;
     return (
-      <ListContainer height={height} width={width}>
+      <ListContainer id={id} className={className} height={height} width={width}>
         {isHeaderVisible && (
           <Header
             id={`${id}-header`}
@@ -276,7 +281,16 @@ class List extends React.PureComponent {
             onSelectAllChange={this.handleSelectAllChange}
           />
         )}
-        <ResponsiveListContainer isHeaderVisible={isHeaderVisible} {...this.props}>
+        <ResponsiveListContainer
+          id={`${id}-items`}
+          height={height}
+          itemHeight={itemHeight}
+          columns={columns}
+          columnHeaderHeight={columnHeaderHeight}
+          isHeaderVisible={isHeaderVisible}
+          isColumnHeaderVisible={isColumnHeaderVisible}
+          reactInfiniteProps={reactInfiniteProps}
+        >
           {filteredItems.map(this.renderRow)}
         </ResponsiveListContainer>
       </ListContainer>
