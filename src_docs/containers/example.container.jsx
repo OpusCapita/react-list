@@ -20,6 +20,7 @@ const ListContainer = styled.div`
 export default class ExampleContainer extends React.PureComponent {
   state = {
     isIndexColumnVisible: false,
+    isItemBorderVisible: false,
     isColumnHeaderVisible: false,
     isSearchable: false,
     isSelectAllVisible: false,
@@ -68,6 +69,9 @@ export default class ExampleContainer extends React.PureComponent {
             <Panel style={{ padding: '20px' }}>
               <p>
                 {this.renderCheckbox('isIndexColumnVisible')}
+              </p>
+              <p>
+                {this.renderCheckbox('isItemBorderVisible')}
               </p>
               <p>
                 {this.renderCheckbox('isColumnHeaderVisible')}

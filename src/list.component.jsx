@@ -55,6 +55,7 @@ class List extends React.PureComponent {
     isShowOnlySelectedVisible: PropTypes.bool,
     isColumnHeaderVisible: PropTypes.bool,
     isIndexColumnVisible: PropTypes.bool,
+    isItemBorderVisible: PropTypes.bool,
 
     // actions
     onSelectedChange: PropTypes.func,
@@ -87,6 +88,7 @@ class List extends React.PureComponent {
     isShowOnlySelectedVisible: false,
     isColumnHeaderVisible: false,
     isIndexColumnVisible: false,
+    isItemBorderVisible: true,
     onSelectedChange: () => {},
     onRowClick: () => {},
     onRowDoubleClick: () => {},
@@ -199,6 +201,7 @@ class List extends React.PureComponent {
       idKey,
       itemHeight,
       isIndexColumnVisible,
+      isItemBorderVisible,
       columns,
       isSelectable,
     } = this.props;
@@ -214,6 +217,7 @@ class List extends React.PureComponent {
         columns={columns}
         isSelected={isSelected}
         isSelectable={isSelectable}
+        isItemBorderVisible={isItemBorderVisible}
         onSelectChange={this.handleItemSelectChange(item[idKey], isSelected)}
       />
     );

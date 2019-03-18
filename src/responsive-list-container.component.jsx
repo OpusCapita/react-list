@@ -17,7 +17,6 @@ const ItemContainer = styled.div`
   min-height: 0px;
   min-width: 100%;
   overflow: hidden;
-  border-bottom: 1px solid ${props => props.theme.colors.grey6};
   padding: 0;
   margin: 0;
 `;

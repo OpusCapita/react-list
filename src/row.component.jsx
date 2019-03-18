@@ -6,7 +6,8 @@ import Column from './column.component';
 
 const Row = styled.div`
   display: flex;
-  height: ${props => (props.height - 1)}px;
+  height: ${props => props.height}px;
+  border-bottom: ${props => (props.isItemBorderVisible ? `1px solid ${props.theme.colors.grey6}` : 'none')};
   /* cursor: pointer; */
   align-items: center;
   background: ${props => (props.selected ? props.theme.colors.grey5 : props.theme.colors.white)};
@@ -29,6 +30,7 @@ export default class List extends React.PureComponent {
     itemHeight: PropTypes.number.isRequired,
     rowIndex: PropTypes.number.isRequired,
     isIndexColumnVisible: PropTypes.bool.isRequired,
+    isItemBorderVisible: PropTypes.bool.isRequired,
     columns: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     isSelected: PropTypes.bool.isRequired,
     isSelectable: PropTypes.bool.isRequired,
@@ -93,13 +95,14 @@ export default class List extends React.PureComponent {
 
   render() {
     const {
+      isSelectable,
       isIndexColumnVisible,
+      isItemBorderVisible,
       columns,
       itemHeight,
-      isSelectable,
     } = this.props;
     return (
-      <Row height={itemHeight}>
+      <Row height={itemHeight} isItemBordersVisible={isItemBorderVisible}>
         {isSelectable && this.renderSelectColumn()}
         {isIndexColumnVisible && this.renderIndexColumn()}
         {columns.map(this.renderItemColumn)}

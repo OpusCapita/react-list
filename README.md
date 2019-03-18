@@ -54,6 +54,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | isShowOnlySelectedVisible | boolean                 | false                                        | Is show only selected checkbox visible      |
 | isColumnHeaderVisible     | boolean                 | false                                        | Is column header visible                    |
 | isIndexColumnVisible      | boolean                 | false                                        | Is index column visible                     |
+| isItemBorderVisible       | boolean                 | true                                         | Is border visible between items             |
 | onSelectedChange          | function                | (selectedIds: array)                         | Callback for selected items change          |
 | onRowClick                | function                | (rowIndex: number, item: object)             | Callback for row click                      |
 | onRowDoubleClick          | function                | (rowIndex: number, item: object)             | Callback for row double click               |
