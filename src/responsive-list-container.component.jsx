@@ -57,7 +57,9 @@ export default class ResponsiveListContainer extends React.PureComponent {
   componentDidUpdate(prevProps) {
     if (
       (prevProps.isColumnHeaderVisible !== this.props.isColumnHeaderVisible) ||
-      (prevProps.isHeaderVisible !== this.props.isHeaderVisible)
+      (prevProps.isHeaderVisible !== this.props.isHeaderVisible) ||
+      (prevProps.columnHeaderHeight !== this.props.columnHeaderHeight) ||
+      (prevProps.height !== this.props.height)
     ) {
       this.refreshElementHeights();
     }

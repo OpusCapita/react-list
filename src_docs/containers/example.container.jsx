@@ -19,21 +19,44 @@ const ListContainer = styled.div`
 
 export default class ExampleContainer extends React.PureComponent {
   state = {
+    columnHeaderHeight: 40,
+    itemHeight: 40,
     isIndexColumnVisible: false,
-    isItemBorderVisible: false,
+    isItemBorderVisible: true,
     isColumnHeaderVisible: false,
     isSearchable: false,
     isSelectAllVisible: false,
     isShowOnlySelectedVisible: false,
   }
 
-  renderCheckbox = attr => (
-    <Checkbox
-      inline
-      onClick={() => this.setState({ [attr]: !this.state[attr] })}
-    >
+  changeNumberProp = prop => (e) => {
+    const val = Number(e.target.value);
+    this.setState({ [prop]: val });
+  }
+
+  renderNumberInput = attr => (
+    <p>
+      <input
+        type="number"
+        value={this.state[attr]}
+        onChange={this.changeNumberProp(attr)}
+        style={{ width: '60px' }}
+      />
+      {' '}
       {attr}
-    </Checkbox>
+    </p>
+  )
+
+  renderCheckbox = attr => (
+    <p>
+      <Checkbox
+        inline
+        checked={this.state[attr]}
+        onClick={() => this.setState({ [attr]: !this.state[attr] })}
+      >
+        {attr}
+      </Checkbox>
+    </p>
   )
 
   render() {
@@ -67,27 +90,15 @@ export default class ExampleContainer extends React.PureComponent {
               <br />
             </Panel>
             <Panel style={{ padding: '20px' }}>
-              <p>
-                {this.renderCheckbox('isIndexColumnVisible')}
-              </p>
-              <p>
-                {this.renderCheckbox('isItemBorderVisible')}
-              </p>
-              <p>
-                {this.renderCheckbox('isColumnHeaderVisible')}
-              </p>
-              <p>
-                {this.renderCheckbox('isSearchable')}
-              </p>
-              <p>
-                {this.renderCheckbox('isSelectable')}
-              </p>
-              <p>
-                {this.renderCheckbox('isSelectAllVisible')}
-              </p>
-              <p>
-                {this.renderCheckbox('isShowOnlySelectedVisible')}
-              </p>
+              {this.renderCheckbox('isIndexColumnVisible')}
+              {this.renderCheckbox('isItemBorderVisible')}
+              {this.renderCheckbox('isColumnHeaderVisible')}
+              {this.renderCheckbox('isSearchable')}
+              {this.renderCheckbox('isSelectable')}
+              {this.renderCheckbox('isSelectAllVisible')}
+              {this.renderCheckbox('isShowOnlySelectedVisible')}
+              {this.renderNumberInput('itemHeight')}
+              {this.renderNumberInput('columnHeaderHeight')}
             </Panel>
           </Col>
           <Col xs={8} md={10}>

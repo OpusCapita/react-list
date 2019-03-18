@@ -102,7 +102,7 @@ export default class List extends React.PureComponent {
       itemHeight,
     } = this.props;
     return (
-      <Row height={itemHeight} isItemBordersVisible={isItemBorderVisible}>
+      <Row height={itemHeight} isItemBorderVisible={isItemBorderVisible}>
         {isSelectable && this.renderSelectColumn()}
         {isIndexColumnVisible && this.renderIndexColumn()}
         {columns.map(this.renderItemColumn)}
