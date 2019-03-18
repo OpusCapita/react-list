@@ -7,12 +7,12 @@ import Column from './column.component';
 const Row = styled.div`
   display: flex;
   height: ${props => (props.height - 1)}px;
-  cursor: pointer;
+  /* cursor: pointer; */
   align-items: center;
   background: ${props => (props.selected ? props.theme.colors.grey5 : props.theme.colors.white)};
-  &:hover {
+  /* &:hover {
     background: ${props => props.theme.colors.grey4};
-  }
+  } */
   user-select: none;
 `;
 
@@ -44,7 +44,7 @@ export default class List extends React.PureComponent {
     return (
       <Column
         id={`${id}-col-index`}
-        width={30}
+        width={40}
         alignment="flex-start"
       >
         <Checkbox
@@ -64,7 +64,7 @@ export default class List extends React.PureComponent {
     return (
       <Column
         id={`${id}-col-index`}
-        width={30}
+        width={40}
         alignment="flex-start"
       >
         {rowIndex + 1}

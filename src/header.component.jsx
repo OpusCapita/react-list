@@ -26,6 +26,7 @@ const SearchContainer = styled.div`
 const StyledCheckbox = styled(Checkbox)`
   && .icon {
     width: auto;
+    user-select: none;
   }
 `;
 

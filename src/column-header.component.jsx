@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Checkbox from '@opuscapita/react-checkbox';
 import Column from './column.component';
 
 const Header = styled.header`
@@ -20,9 +21,29 @@ const HeaderColumn = styled(Column)`
 export default class ColumnHeader extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
+    isSelectAllVisible: PropTypes.bool.isRequired,
     isIndexColumnVisible: PropTypes.bool.isRequired,
     columns: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     height: PropTypes.number.isRequired,
+    isAllSelected: PropTypes.bool.isRequired,
+    onSelectAllChange: PropTypes.func.isRequired,
+  }
+
+  renderSelectAllColumn = () => {
+    const {
+      id,
+      isAllSelected,
+      onSelectAllChange,
+    } = this.props;
+    return (
+      <HeaderColumn width={40}>
+        <Checkbox
+          id={`${id}-selectall`}
+          checked={isAllSelected}
+          onChange={onSelectAllChange}
+        />
+      </HeaderColumn>
+    );
   }
 
   renderColumn = column => (
@@ -39,6 +60,7 @@ export default class ColumnHeader extends React.PureComponent {
     const {
       id,
       isIndexColumnVisible,
+      isSelectAllVisible,
       columns,
       height,
     } = this.props;
@@ -47,7 +69,8 @@ export default class ColumnHeader extends React.PureComponent {
         id={id}
         height={height}
       >
-        {isIndexColumnVisible && <HeaderColumn width={30}>#</HeaderColumn>}
+        {isSelectAllVisible && this.renderSelectAllColumn()}
+        {isIndexColumnVisible && <HeaderColumn width={40}>#</HeaderColumn>}
         {columns && columns.map(this.renderColumn)}
       </Header>
     );

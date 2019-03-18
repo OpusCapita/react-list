@@ -243,6 +243,7 @@ class List extends React.PureComponent {
       (isSearchable) ||
       (isShowOnlySelectedVisible)
     );
+    const isAllSelected = items.length > 0 && items.length === selectedItems.length;
     return (
       <ListContainer height={height} width={width}>
         {isHeaderVisible && (
@@ -252,7 +253,7 @@ class List extends React.PureComponent {
             isSearchable={isSearchable}
             isSelectAllVisible={isSelectAllVisible}
             isShowOnlySelectedVisible={isShowOnlySelectedVisible}
-            isAllSelected={items.length > 0 && items.length === selectedItems.length}
+            isAllSelected={isAllSelected}
             isShowOnlySelected={showOnlySelected}
             searchKeyword={searchKeyword}
             disabled={items.length === 0}
@@ -268,7 +269,9 @@ class List extends React.PureComponent {
             columns={columns}
             isSelectAllVisible={isSelectAllVisible}
             isIndexColumnVisible={isIndexColumnVisible}
+            isAllSelected={isAllSelected}
             height={columnHeaderHeight}
+            onSelectAllChange={this.handleSelectAllChange}
           />
         )}
         <ResponsiveListContainer isHeaderVisible={isHeaderVisible} {...this.props}>
