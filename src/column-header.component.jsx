@@ -21,6 +21,7 @@ const HeaderColumn = styled(Column)`
 export default class ColumnHeader extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
+    isSelectable: PropTypes.bool.isRequired,
     isSelectAllVisible: PropTypes.bool.isRequired,
     isIndexColumnVisible: PropTypes.bool.isRequired,
     columns: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -33,15 +34,18 @@ export default class ColumnHeader extends React.PureComponent {
     const {
       id,
       isAllSelected,
+      isSelectAllVisible,
       onSelectAllChange,
     } = this.props;
     return (
-      <HeaderColumn width={40}>
-        <Checkbox
-          id={`${id}-selectall`}
-          checked={isAllSelected}
-          onChange={onSelectAllChange}
-        />
+      <HeaderColumn width={35}>
+        {isSelectAllVisible && (
+          <Checkbox
+            id={`${id}-selectall`}
+            checked={isAllSelected}
+            onChange={onSelectAllChange}
+          />
+        )}
       </HeaderColumn>
     );
   }
@@ -60,7 +64,7 @@ export default class ColumnHeader extends React.PureComponent {
     const {
       id,
       isIndexColumnVisible,
-      isSelectAllVisible,
+      isSelectable,
       columns,
       height,
     } = this.props;
@@ -69,8 +73,8 @@ export default class ColumnHeader extends React.PureComponent {
         id={id}
         height={height}
       >
-        {isSelectAllVisible && this.renderSelectAllColumn()}
-        {isIndexColumnVisible && <HeaderColumn width={40}>#</HeaderColumn>}
+        {isSelectable && this.renderSelectAllColumn()}
+        {isIndexColumnVisible && <HeaderColumn width={35}>#</HeaderColumn>}
         {columns && columns.map(this.renderColumn)}
       </Header>
     );

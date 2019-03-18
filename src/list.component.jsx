@@ -229,6 +229,7 @@ class List extends React.PureComponent {
       columnHeaderHeight,
       isColumnHeaderVisible,
       isSearchable,
+      isSelectable,
       isSelectAllVisible,
       isShowOnlySelectedVisible,
       translations,
@@ -267,6 +268,7 @@ class List extends React.PureComponent {
           <ColumnHeader
             id={`${id}-column-header`}
             columns={columns}
+            isSelectable={isSelectable}
             isSelectAllVisible={isSelectAllVisible}
             isIndexColumnVisible={isIndexColumnVisible}
             isAllSelected={isAllSelected}

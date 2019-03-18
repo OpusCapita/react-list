@@ -44,7 +44,7 @@ export default class List extends React.PureComponent {
     return (
       <Column
         id={`${id}-col-index`}
-        width={40}
+        width={35}
         alignment="flex-start"
       >
         <Checkbox
@@ -64,7 +64,7 @@ export default class List extends React.PureComponent {
     return (
       <Column
         id={`${id}-col-index`}
-        width={40}
+        width={35}
         alignment="flex-start"
       >
         {rowIndex + 1}
