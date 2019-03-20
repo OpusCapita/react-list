@@ -30,7 +30,7 @@ const SearchContainer = styled.div`
   flex: 1 1 auto;
   min-height: 0px;
   min-width: 0px;
-  overflow: hidden;
+  overflow: visible;
 `;
 
 const StyledCheckbox = styled(Checkbox)`
@@ -48,7 +48,6 @@ export default class Header extends React.PureComponent {
     isShowOnlySelectedVisible: PropTypes.bool.isRequired,
     isColumnHeaderVisible: PropTypes.bool.isRequired,
     isAllSelected: PropTypes.bool.isRequired,
-    searchKeyword: PropTypes.string.isRequired,
     isShowOnlySelected: PropTypes.bool.isRequired,
     onSelectAllChange: PropTypes.func.isRequired,
     onSearchChange: PropTypes.func.isRequired,
@@ -82,18 +81,17 @@ export default class Header extends React.PureComponent {
   renderSearch = () => {
     const {
       id,
-      searchKeyword,
       onSearchChange,
       translations,
     } = this.props;
     return (
       <Searchbar
         id={`${id}-selectall`}
-        value={searchKeyword}
         onSearch={onSearchChange}
-        dynamicSearchStartsFrom={1}
-        searchPlaceHolder={`${translations.search}...`}
-        tooltipDelay={500000}
+        isDynamic
+        translations={{
+          searchPlaceHolder: `${translations.search}...`,
+        }}
       />
     );
   }

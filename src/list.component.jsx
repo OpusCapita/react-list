@@ -265,7 +265,6 @@ class List extends React.PureComponent {
             isShowOnlySelectedVisible={isShowOnlySelectedVisible}
             isAllSelected={isAllSelected}
             isShowOnlySelected={showOnlySelected}
-            searchKeyword={searchKeyword}
             disabled={items.length === 0}
             onSelectAllChange={this.handleSelectAllChange}
             onSearchChange={this.handleSearchChange}

@@ -6,9 +6,9 @@ Highly configurable react list component
 ### Main features
 * Virtualization with [react-infinite](https://github.com/seatgeek/react-infinite)
 * Responsive or fixed size
-* Drag'n'drop ordering (coming soon)
 * Columns with headers
-* Selectable items (coming soon)
+* Selectable items
+* Drag'n'drop ordering (coming soon)
 
 ### Installation
 ```

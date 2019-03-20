@@ -11,9 +11,9 @@ const Row = styled.div`
   /* cursor: pointer; */
   align-items: center;
   background: ${props => (props.selected ? props.theme.colors.grey5 : props.theme.colors.white)};
-  /* &:hover {
+  &:hover {
     background: ${props => props.theme.colors.grey4};
-  } */
+  }
   user-select: none;
 `;
 

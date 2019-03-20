@@ -53,7 +53,7 @@ export default class ExampleContainer extends React.PureComponent {
       <Checkbox
         inline
         checked={this.state[attr]}
-        onClick={() => this.setState({ [attr]: !this.state[attr] })}
+        onChange={() => this.setState({ [attr]: !this.state[attr] })}
       >
         {attr}
       </Checkbox>

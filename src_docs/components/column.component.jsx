@@ -14,17 +14,17 @@ export default class ColumnList extends React.PureComponent {
         id: i,
         firstname: faker.name.firstName(),
         lastname: faker.name.lastName(),
-        title: faker.name.title,
-        jobtitle: faker.name.jobTitle(),
-        jobarea: faker.name.jobArea(),
+        title: faker.name.title(),
+        phone: faker.phone.phoneNumber(),
+        company: faker.company.companyName(),
       });
     }
     this.columns = [
-      { valueKey: 'firstname', title: 'Firstname' },
-      { valueKey: 'lastname', title: 'Lastname' },
+      { valueKey: 'firstname', title: 'Firstname', width: 100 },
+      { valueKey: 'lastname', title: 'Lastname', width: 100 },
       { valueKey: 'title', title: 'Title' },
-      { valueKey: 'jobtitle', title: 'Job title' },
-      { valueKey: 'jobarea', title: 'Job area' },
+      { valueKey: 'phone', title: 'Phone number', alignment: 'flex-end', width: 150 }, // eslint-disable-line
+      { valueKey: 'company', title: 'Company' },
     ];
   }
 
