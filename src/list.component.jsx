@@ -168,7 +168,7 @@ class List extends React.PureComponent {
       idKey,
       columns,
     } = this.props;
-    // 
+    // https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization
     return memoize((items, selectedItems, searchKeyword, showOnlySelected) =>
       items.filter((i) => {
         let hit = false;
