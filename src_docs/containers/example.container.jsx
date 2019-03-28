@@ -5,8 +5,9 @@ import { Panel, Grid, Row, Col, Checkbox } from 'react-bootstrap';
 import { theme } from '@opuscapita/oc-cm-common-layouts';
 import GithubLogo from '../images/logo-github.svg';
 import packageConfig from '../../package.json';
-import Simple from '../components/simple.component';
-import Column from '../components/column.component';
+import SimpleList from '../components/simple-list.component';
+import CustomRenderList from '../components/custom-render-list.component';
+import { getColumnData, getSimpleData } from '../constants/data';
 
 const packageDescription = packageConfig.description;
 const packageName = packageConfig.name.replace('@opuscapita/', '');
@@ -17,8 +18,12 @@ const ListContainer = styled.div`
   overflow: auto;
 `;
 
+const simpleListData = getSimpleData(100);
+const columnListData = getColumnData(100);
+
 export default class ExampleContainer extends React.PureComponent {
   state = {
+    // default props for react-list component
     columnHeaderHeight: 40,
     itemHeight: 40,
     isIndexColumnVisible: false,
@@ -85,6 +90,8 @@ export default class ExampleContainer extends React.PureComponent {
               <br />
               <Link to="/columns" href="/columns">Columns</Link>
               <br />
+              <Link to="/custom-render" href="/custom-render">Custom render</Link>
+              <br />
               <Link to="/fixed-height" href="/fixed-height">Fixed height</Link>
               <br />
               <Link to="/fixed-size" href="/fixed-size">Fixed width and height</Link>
@@ -107,10 +114,11 @@ export default class ExampleContainer extends React.PureComponent {
               <ThemeProvider theme={theme}>
                 <ListContainer>
                   <Switch>
-                    <Route path="/" exact render={() => <Simple key="1" {...this.state} />} />
-                    <Route path="/columns" render={() => <Column key="2" {...this.state} />} />
-                    <Route path="/fixed-height" render={() => <Simple key="4" height={400} {...this.state} />} />
-                    <Route path="/fixed-size" render={() => <Simple key="5" height={400} width={400} {...this.state} />} />
+                    <Route path="/" exact render={() => <SimpleList key="1" items={simpleListData.items} {...this.state} />} />
+                    <Route path="/columns" render={() => <SimpleList key="2" items={columnListData.items} columns={columnListData.columns} {...this.state} />} />
+                    <Route path="/custom-render" render={() => <CustomRenderList key="3" {...this.state} />} />
+                    <Route path="/fixed-height" render={() => <SimpleList key="4" items={columnListData.items} columns={columnListData.columns} height={400} {...this.state} />} />
+                    <Route path="/fixed-size" render={() => <SimpleList key="5" items={columnListData.items} columns={columnListData.columns} height={400} width={400} {...this.state} />} />
                   </Switch>
                 </ListContainer>
               </ThemeProvider>

@@ -61,10 +61,13 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | onRowRightClick           | function                | (rowIndex: number, item: object)             | Callback for row right click                |
 
 #### `column` object attributes
-| Name            | Type             | Default | Description                            |
-| --------------- | ---------------- | ------- | -------------------------------------- |
-| valueKey        | string           | 'value' | Value key in the list                  |
-| valueTitle      | array of strings | 'Value' | Title text to display in column header |
+| Name            | Type             | Default / Parameters | Description                            |
+| --------------- | ---------------- | -------------------- | -------------------------------------- |
+| valueKey        | string           | 'value'              | Value key in the list                  |
+| title           | array of strings | 'Value'              | Title text to display in column header |
+| width           | number           | 200                  | Column width in pixels                 |
+| alignment       | string           | 'flex-start'         | Value for `justify-content` CSS rule   |
+| render          | function         | (item, index)        | Custom renderer function               |
 
 ### Theme
 You can use styled-components ThemeProvider to provide theme.
@@ -113,9 +116,10 @@ export default class ReactView extends React.Component {
     ];
     return (
       <List
-        showColumnHeader
         columns={columns}
         items={items}
+        idKey="itemId"
+        isColumnHeaderVisible
       />
     );
   }

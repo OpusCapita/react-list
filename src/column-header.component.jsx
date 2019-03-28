@@ -50,13 +50,13 @@ export default class ColumnHeader extends React.PureComponent {
     );
   }
 
-  renderColumn = column => (
+  renderColumn = (column, idx) => (
     <HeaderColumn
-      key={column.valueKey}
+      key={column.valueKey || idx}
       width={column.width || 200}
       alignment={column.alignment || 'flex-start'}
     >
-      <span>{column.title}</span>
+      <span>{column.title || ''}</span>
     </HeaderColumn>
   )
 

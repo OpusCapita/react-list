@@ -17,7 +17,7 @@ const Row = styled.div`
   user-select: none;
 `;
 
-const DefaultTextContainer = styled.span`
+const DefaultCellContainer = styled.span`
   text-overflow: ellipsis;
   white-space: ${props => (!props.insideTooltip ? 'nowrap' : 'normal')};
   overflow: hidden;
@@ -37,7 +37,7 @@ export default class List extends React.PureComponent {
     onSelectChange: PropTypes.func.isRequired,
   }
 
-  renderSelectColumn = () => {
+  renderSelectCell = () => {
     const {
       id,
       isSelected,
@@ -58,7 +58,7 @@ export default class List extends React.PureComponent {
     );
   }
 
-  renderIndexColumn = () => {
+  renderIndexCell = () => {
     const {
       id,
       rowIndex,
@@ -74,21 +74,32 @@ export default class List extends React.PureComponent {
     );
   }
 
-  renderItemColumn = (column) => {
+  renderItemCell = (column, idx) => {
     const {
       id,
       item,
     } = this.props;
+    const key = column.valueKey || idx;
+    let cell = null;
+    if (column.render === 'function') {
+      cell = column.render(item, idx);
+    } else {
+      cell = item[column.valueKey];
+    }
     return (
       <Column
-        id={`${id}-col-${column.valueKey}`}
-        key={column.valueKey}
+        id={`${id}-col-${key}`}
+        key={key}
         width={column.width || 200}
         alignment={column.alignment || 'flex-start'}
       >
-        <DefaultTextContainer>
-          {item[column.valueKey]}
-        </DefaultTextContainer>
+        {column.render ? column.render(item) : (
+          column.valueKey && (
+            <DefaultCellContainer>
+              {cell}
+            </DefaultCellContainer>
+          )
+        )}
       </Column>
     );
   }
@@ -103,9 +114,9 @@ export default class List extends React.PureComponent {
     } = this.props;
     return (
       <Row height={itemHeight} isItemBorderVisible={isItemBorderVisible}>
-        {isSelectable && this.renderSelectColumn()}
-        {isIndexColumnVisible && this.renderIndexColumn()}
-        {columns.map(this.renderItemColumn)}
+        {isSelectable && this.renderSelectCell()}
+        {isIndexColumnVisible && this.renderIndexCell()}
+        {columns.map(this.renderItemCell)}
       </Row>
     );
   }

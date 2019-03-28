@@ -168,6 +168,7 @@ class List extends React.PureComponent {
       idKey,
       columns,
     } = this.props;
+    // 
     return memoize((items, selectedItems, searchKeyword, showOnlySelected) =>
       items.filter((i) => {
         let hit = false;
@@ -288,7 +289,6 @@ class List extends React.PureComponent {
           id={`${id}-items`}
           height={height}
           itemHeight={itemHeight}
-          columns={columns}
           columnHeaderHeight={columnHeaderHeight}
           isHeaderVisible={isHeaderVisible}
           isColumnHeaderVisible={isColumnHeaderVisible}

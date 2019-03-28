@@ -2,6 +2,12 @@
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
+## 0.3.0
+* Add `render` custom renderer prop for column
+
+## 0.2.1
+* Upgrade `@opuscapita/react-searchbar` to fix bugs
+
 ## 0.2.0
 * Add `isItemBorderVisible` prop
 

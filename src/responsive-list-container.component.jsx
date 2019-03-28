@@ -30,7 +30,6 @@ export default class ResponsiveListContainer extends React.PureComponent {
       PropTypes.oneOf(['auto']),
     ]).isRequired,
     itemHeight: PropTypes.number.isRequired,
-    columns: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     columnHeaderHeight: PropTypes.number.isRequired,
     isHeaderVisible: PropTypes.bool.isRequired,
     isColumnHeaderVisible: PropTypes.bool.isRequired,
@@ -92,7 +91,6 @@ export default class ResponsiveListContainer extends React.PureComponent {
     const {
       children,
       id,
-      columns,
       itemHeight,
       columnHeaderHeight,
       isHeaderVisible,
@@ -107,7 +105,6 @@ export default class ResponsiveListContainer extends React.PureComponent {
     return (
       <ListContainer
         id={id}
-        columns={columns}
         headerHeight={headerHeight}
         ref={(r) => { this.listContainerRef = r; }}
       >
