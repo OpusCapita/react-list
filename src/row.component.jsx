@@ -81,10 +81,10 @@ export default class List extends React.PureComponent {
     } = this.props;
     const key = column.valueKey || idx;
     let cell = null;
-    if (column.render === 'function') {
+    if (typeof column.render === 'function') {
       cell = column.render(item, idx);
-    } else {
-      cell = item[column.valueKey];
+    } else if (column.valueKey) {
+      cell = <DefaultCellContainer>{item[column.valueKey]}</DefaultCellContainer>;
     }
     return (
       <Column
@@ -93,13 +93,7 @@ export default class List extends React.PureComponent {
         width={column.width || 200}
         alignment={column.alignment || 'flex-start'}
       >
-        {column.render ? column.render(item) : (
-          column.valueKey && (
-            <DefaultCellContainer>
-              {cell}
-            </DefaultCellContainer>
-          )
-        )}
+        {cell}
       </Column>
     );
   }
