@@ -2,6 +2,9 @@
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
+## 0.3.2
+* Fix `render` function index parameter
+
 ## 0.3.1
 * Fix `render` function index parameter
 

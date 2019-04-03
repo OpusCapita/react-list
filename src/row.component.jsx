@@ -78,11 +78,12 @@ export default class List extends React.PureComponent {
     const {
       id,
       item,
+      rowIndex,
     } = this.props;
     const key = column.valueKey || idx;
     let cell = null;
     if (typeof column.render === 'function') {
-      cell = column.render(item, idx);
+      cell = column.render(item, rowIndex);
     } else if (column.valueKey) {
       cell = <DefaultCellContainer>{item[column.valueKey]}</DefaultCellContainer>;
     }
