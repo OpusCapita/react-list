@@ -6,6 +6,7 @@ import { theme } from '@opuscapita/oc-cm-common-layouts';
 import GithubLogo from '../images/logo-github.svg';
 import packageConfig from '../../package.json';
 import SimpleList from '../components/simple-list.component';
+import SimpleSortableList from '../components/simple-sortable-list.component';
 import CustomRenderList from '../components/custom-render-list.component';
 import { getColumnData, getSimpleData } from '../constants/data';
 
@@ -31,6 +32,7 @@ export default class ExampleContainer extends React.PureComponent {
     isColumnHeaderVisible: false,
     isSearchable: false,
     isSelectable: false,
+    isSortingDisabled: false,
     isSelectAllVisible: false,
     isShowOnlySelectedVisible: false,
   }
@@ -96,6 +98,8 @@ export default class ExampleContainer extends React.PureComponent {
               <br />
               <Link to="/fixed-size" href="/fixed-size">Fixed width and height</Link>
               <br />
+              <Link to="/sortable" href="/sortable">Sortable list</Link>
+              <br />
             </Panel>
             <Panel style={{ padding: '20px' }}>
               {this.renderCheckbox('isIndexColumnVisible')}
@@ -105,6 +109,7 @@ export default class ExampleContainer extends React.PureComponent {
               {this.renderCheckbox('isSelectable')}
               {this.renderCheckbox('isSelectAllVisible')}
               {this.renderCheckbox('isShowOnlySelectedVisible')}
+              {this.renderCheckbox('isSortingDisabled')}
               {this.renderNumberInput('itemHeight')}
               {this.renderNumberInput('columnHeaderHeight')}
             </Panel>
@@ -119,6 +124,7 @@ export default class ExampleContainer extends React.PureComponent {
                     <Route path="/custom-render" render={() => <CustomRenderList key="3" {...this.state} />} />
                     <Route path="/fixed-height" render={() => <SimpleList key="4" items={columnListData.items} columns={columnListData.columns} height={400} {...this.state} />} />
                     <Route path="/fixed-size" render={() => <SimpleList key="5" items={columnListData.items} columns={columnListData.columns} height={400} width={400} {...this.state} />} />
+                    <Route path="/sortable" render={() => <SimpleSortableList key="6" items={simpleListData.items} height="auto" width="auto" {...this.state} />} />
                   </Switch>
                 </ListContainer>
               </ThemeProvider>
