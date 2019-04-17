@@ -1,13 +1,20 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Switch, Route, Link } from 'react-router-dom';
-import { Panel, Grid, Row, Col, Checkbox } from 'react-bootstrap';
+import {
+  Panel,
+  Grid,
+  Row,
+  Col,
+  Checkbox,
+} from 'react-bootstrap';
 import { theme } from '@opuscapita/oc-cm-common-layouts';
 import GithubLogo from '../images/logo-github.svg';
 import packageConfig from '../../package.json';
 import SimpleList from '../components/simple-list.component';
 import CustomRenderList from '../components/custom-render-list.component';
-import { getColumnData, getSimpleData } from '../constants/data';
+import GroupList from '../components/group-list.component';
+import { getColumnData, getSimpleData, getGroupData } from '../constants/data';
 
 const packageDescription = packageConfig.description;
 const packageName = packageConfig.name.replace('@opuscapita/', '');
@@ -20,6 +27,7 @@ const ListContainer = styled.div`
 
 const simpleListData = getSimpleData(100);
 const columnListData = getColumnData(100);
+const groupListData = getGroupData();
 
 export default class ExampleContainer extends React.PureComponent {
   state = {
@@ -30,7 +38,7 @@ export default class ExampleContainer extends React.PureComponent {
     isItemBorderVisible: true,
     isColumnHeaderVisible: false,
     isSearchable: false,
-    isSelectable: false,
+    isSelectColumnVisible: false,
     isSelectAllVisible: false,
     isShowOnlySelectedVisible: false,
   }
@@ -44,7 +52,7 @@ export default class ExampleContainer extends React.PureComponent {
     <p>
       <input
         type="number"
-        value={this.state[attr]}
+        value={this.state[attr]} // eslint-disable-line
         onChange={this.changeNumberProp(attr)}
         style={{ width: '60px' }}
       />
@@ -57,8 +65,8 @@ export default class ExampleContainer extends React.PureComponent {
     <p>
       <Checkbox
         inline
-        checked={this.state[attr]}
-        onChange={() => this.setState({ [attr]: !this.state[attr] })}
+        checked={this.state[attr]} // eslint-disable-line
+        onChange={() => this.setState({ [attr]: !this.state[attr] })} // eslint-disable-line
       >
         {attr}
       </Checkbox>
@@ -96,13 +104,15 @@ export default class ExampleContainer extends React.PureComponent {
               <br />
               <Link to="/fixed-size" href="/fixed-size">Fixed width and height</Link>
               <br />
+              <Link to="/groups" href="/groups">Groups</Link>
+              <br />
             </Panel>
             <Panel style={{ padding: '20px' }}>
               {this.renderCheckbox('isIndexColumnVisible')}
               {this.renderCheckbox('isItemBorderVisible')}
               {this.renderCheckbox('isColumnHeaderVisible')}
               {this.renderCheckbox('isSearchable')}
-              {this.renderCheckbox('isSelectable')}
+              {this.renderCheckbox('isSelectColumnVisible')}
               {this.renderCheckbox('isSelectAllVisible')}
               {this.renderCheckbox('isShowOnlySelectedVisible')}
               {this.renderNumberInput('itemHeight')}
@@ -119,6 +129,7 @@ export default class ExampleContainer extends React.PureComponent {
                     <Route path="/custom-render" render={() => <CustomRenderList key="3" {...this.state} />} />
                     <Route path="/fixed-height" render={() => <SimpleList key="4" items={columnListData.items} columns={columnListData.columns} height={400} {...this.state} />} />
                     <Route path="/fixed-size" render={() => <SimpleList key="5" items={columnListData.items} columns={columnListData.columns} height={400} width={400} {...this.state} />} />
+                    <Route path="/groups" render={() => <GroupList key="6" items={groupListData} {...this.state} />} />
                   </Switch>
                 </ListContainer>
               </ThemeProvider>

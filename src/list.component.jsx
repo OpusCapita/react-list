@@ -50,18 +50,20 @@ class List extends React.PureComponent {
 
     // Booleans
     isSearchable: PropTypes.bool,
-    isSelectable: PropTypes.bool,
+    isSelectColumnVisible: PropTypes.bool,
     isSelectAllVisible: PropTypes.bool,
     isShowOnlySelectedVisible: PropTypes.bool,
     isColumnHeaderVisible: PropTypes.bool,
     isIndexColumnVisible: PropTypes.bool,
     isItemBorderVisible: PropTypes.bool,
+    isAllSelected: PropTypes.bool,
 
     // actions
     onSelectedChange: PropTypes.func,
     onRowClick: PropTypes.func,
     onRowDoubleClick: PropTypes.func,
     onRowRightClick: PropTypes.func,
+    onSelectAllClick: PropTypes.func,
   }
 
   static defaultProps = {
@@ -83,16 +85,18 @@ class List extends React.PureComponent {
     customTheme: null,
     reactInfiniteProps: {},
     isSearchable: false,
-    isSelectable: false,
+    isSelectColumnVisible: false,
     isSelectAllVisible: false,
     isShowOnlySelectedVisible: false,
     isColumnHeaderVisible: false,
     isIndexColumnVisible: false,
     isItemBorderVisible: true,
+    isAllSelected: null,
     onSelectedChange: () => {},
     onRowClick: () => {},
     onRowDoubleClick: () => {},
     onRowRightClick: () => {},
+    onSelectAllClick: () => {},
   }
 
   constructor(props) {
@@ -103,44 +107,22 @@ class List extends React.PureComponent {
     };
   }
 
-  handleRowClick = (rowIndex, item) => {
-    const {
-      onRowClick,
-    } = this.props;
-    onRowClick(rowIndex, item);
-  }
-
-  handleRowDoubleClick = (rowIndex, item) => {
-    const {
-      onRowDoubleClick,
-    } = this.props;
-    onRowDoubleClick(rowIndex, item);
-  }
-
-  handleRowRightClick = (rowIndex, item) => {
-    const {
-      onRowRightClick,
-    } = this.props;
-    onRowRightClick(rowIndex, item);
-  }
-
   handleSelectAllChange = () => {
     const {
       items,
       selectedItems,
       idKey,
-      isSelectable,
       onSelectedChange,
+      onSelectAllClick,
     } = this.props;
-    if (isSelectable) {
-      if (items.length > selectedItems.length) {
-        // Select all
-        onSelectedChange(items.map(i => i[idKey]));
-      } else {
-        // Deselect all
-        onSelectedChange([]);
-      }
+    if (items.length > selectedItems.length) {
+      // Select all
+      onSelectedChange(items.map(i => i[idKey]));
+    } else {
+      // Deselect all
+      onSelectedChange([]);
     }
+    onSelectAllClick();
   }
 
   handleItemSelectChange = (itemId, isSelected) => () => {
@@ -160,7 +142,8 @@ class List extends React.PureComponent {
   };
 
   handleShowOnlySelectedChange = () => {
-    this.setState({ showOnlySelected: !this.state.showOnlySelected });
+    const { showOnlySelected } = this.state;
+    this.setState({ showOnlySelected: !showOnlySelected });
   };
 
   filter = () => {
@@ -169,30 +152,30 @@ class List extends React.PureComponent {
       columns,
     } = this.props;
     // https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization
-    return memoize((items, selectedItems, searchKeyword, showOnlySelected) =>
-      items.filter((i) => {
-        let hit = false;
-        if (showOnlySelected && !selectedItems.includes(i[idKey])) {
-          return false;
-        }
-        if (searchKeyword === '') {
-          return true;
-        }
-        const stringMatcher = (data, keyword) => {
-          let escapedKeyword = keyword;
-          const specialChars = '[]\\^$.|?*+()';
+    return memoize((items, selectedItems, searchKeyword, showOnlySelected) => items.filter((i) => {
+      let hit = false;
+      if (showOnlySelected && !selectedItems.includes(i[idKey])) {
+        return false;
+      }
+      if (searchKeyword === '') {
+        return true;
+      }
+      const stringMatcher = (data, keyword) => {
+        let escapedKeyword = keyword;
+        const specialChars = '[]\\^$.|?*+()';
 
-          // If keyword val starts with a Regex special character, we must escape it
-          if (specialChars.includes(keyword[0])) escapedKeyword = `\\${keyword}`;
-          return (new RegExp(escapedKeyword, 'i')).test(data);
-        };
-        columns.forEach((c) => {
-          if (typeof i[c.valueKey] === 'string' && stringMatcher(i[c.valueKey], searchKeyword)) {
-            hit = true;
-          }
-        });
-        return hit;
-      }));
+        // If keyword val starts with a Regex special character, we must escape it
+        if (specialChars.includes(keyword[0])) escapedKeyword = `\\${keyword}`;
+        return (new RegExp(escapedKeyword, 'i')).test(data);
+      };
+      columns.forEach((c) => {
+        const valueKey = c.valueKey || 'value';
+        if (typeof i[valueKey] === 'string' && stringMatcher(i[valueKey], searchKeyword)) {
+          hit = true;
+        }
+      });
+      return hit;
+    }));
   }
 
   renderRow = (item, rowIndex) => {
@@ -204,7 +187,10 @@ class List extends React.PureComponent {
       isIndexColumnVisible,
       isItemBorderVisible,
       columns,
-      isSelectable,
+      isSelectColumnVisible,
+      onRowClick,
+      onRowDoubleClick,
+      onRowRightClick,
     } = this.props;
     const isSelected = selectedItems.includes(item[idKey]);
     return (
@@ -217,9 +203,12 @@ class List extends React.PureComponent {
         itemHeight={itemHeight}
         columns={columns}
         isSelected={isSelected}
-        isSelectable={isSelectable}
+        isSelectColumnVisible={isSelectColumnVisible}
         isItemBorderVisible={isItemBorderVisible}
         onSelectChange={this.handleItemSelectChange(item[idKey], isSelected)}
+        onRowClick={onRowClick}
+        onRowDoubleClick={onRowDoubleClick}
+        onRowRightClick={onRowRightClick}
       />
     );
   }
@@ -238,9 +227,10 @@ class List extends React.PureComponent {
       columnHeaderHeight,
       isColumnHeaderVisible,
       isSearchable,
-      isSelectable,
+      isSelectColumnVisible,
       isSelectAllVisible,
       isShowOnlySelectedVisible,
+      isAllSelected,
       translations,
       reactInfiniteProps,
     } = this.props;
@@ -248,13 +238,19 @@ class List extends React.PureComponent {
       showOnlySelected,
       searchKeyword,
     } = this.state;
+    // memoize filteredItems when props has not changed to improve performance
     const filteredItems = this.filter()(items, selectedItems, searchKeyword, showOnlySelected);
     const isHeaderVisible = (
-      (isSelectAllVisible && !isColumnHeaderVisible) ||
-      (isSearchable) ||
-      (isShowOnlySelectedVisible)
+      (isSelectAllVisible && !isColumnHeaderVisible)
+      || (isSearchable)
+      || (isShowOnlySelectedVisible)
     );
-    const isAllSelected = items.length > 0 && items.length === selectedItems.length;
+    // override from props or calculate from data
+    const isAllSelectedValue = (
+      isAllSelected !== null
+        ? isAllSelected
+        : (items.length > 0 && items.length === selectedItems.length)
+    );
     return (
       <ListContainer id={id} className={className} height={height} width={width}>
         {isHeaderVisible && (
@@ -264,7 +260,7 @@ class List extends React.PureComponent {
             isSearchable={isSearchable}
             isSelectAllVisible={isSelectAllVisible}
             isShowOnlySelectedVisible={isShowOnlySelectedVisible}
-            isAllSelected={isAllSelected}
+            isAllSelected={isAllSelectedValue}
             isShowOnlySelected={showOnlySelected}
             disabled={items.length === 0}
             onSelectAllChange={this.handleSelectAllChange}
@@ -277,10 +273,10 @@ class List extends React.PureComponent {
           <ColumnHeader
             id={`${id}-column-header`}
             columns={columns}
-            isSelectable={isSelectable}
+            isSelectColumnVisible={isSelectColumnVisible}
             isSelectAllVisible={isSelectAllVisible}
             isIndexColumnVisible={isIndexColumnVisible}
-            isAllSelected={isAllSelected}
+            isAllSelected={isAllSelectedValue}
             height={columnHeaderHeight}
             onSelectAllChange={this.handleSelectAllChange}
           />

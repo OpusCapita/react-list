@@ -13,6 +13,33 @@ export const getSimpleData = (count) => {
   };
 };
 
+export const getGroupData = () => {
+  const groupId1 = faker.random.uuid();
+  const groupId2 = faker.random.uuid();
+  const groupId3 = faker.random.uuid();
+  return [
+    { id: groupId1, value: faker.internet.domainName(), isGroup: true },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId1 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId1 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId1 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId1 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId1 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId1 },
+    { id: groupId2, value: faker.internet.domainName(), isGroup: true },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId2 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId2 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId2 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId2 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId2 },
+    { id: groupId3, value: faker.internet.domainName(), isGroup: true },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId3 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId3 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId3 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId3 },
+    { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId3 },
+  ];
+};
+
 export const getNewColumnItem = () => (
   {
     id: faker.random.uuid(),

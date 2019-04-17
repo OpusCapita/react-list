@@ -46,7 +46,8 @@ export default class ResponsiveListContainer extends React.PureComponent {
   }
 
   componentDidMount() {
-    if (this.props.height === 'auto') {
+    const { height } = this.props;
+    if (height === 'auto') {
       window.addEventListener('resize', debounce(this.refreshElementHeights));
       window.addEventListener('orientationchange', this.refreshElementHeights); // for mobile support
     }
@@ -54,18 +55,25 @@ export default class ResponsiveListContainer extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
+    const {
+      isColumnHeaderVisible,
+      isHeaderVisible,
+      columnHeaderHeight,
+      height,
+    } = this.props;
     if (
-      (prevProps.isColumnHeaderVisible !== this.props.isColumnHeaderVisible) ||
-      (prevProps.isHeaderVisible !== this.props.isHeaderVisible) ||
-      (prevProps.columnHeaderHeight !== this.props.columnHeaderHeight) ||
-      (prevProps.height !== this.props.height)
+      (prevProps.isColumnHeaderVisible !== isColumnHeaderVisible)
+      || (prevProps.isHeaderVisible !== isHeaderVisible)
+      || (prevProps.columnHeaderHeight !== columnHeaderHeight)
+      || (prevProps.height !== height)
     ) {
       this.refreshElementHeights();
     }
   }
 
   componentWillUnmount() {
-    if (this.props.height === 'auto') {
+    const { height } = this.props;
+    if (height === 'auto') {
       window.removeEventListener('resize', debounce(this.refreshElementHeights));
       window.removeEventListener('orientationchange', this.refreshElementHeights); // for mobile support
     }

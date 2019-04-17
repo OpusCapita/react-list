@@ -21,7 +21,7 @@ const HeaderColumn = styled(Column)`
 export default class ColumnHeader extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
-    isSelectable: PropTypes.bool.isRequired,
+    isSelectColumnVisible: PropTypes.bool.isRequired,
     isSelectAllVisible: PropTypes.bool.isRequired,
     isIndexColumnVisible: PropTypes.bool.isRequired,
     columns: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -64,7 +64,7 @@ export default class ColumnHeader extends React.PureComponent {
     const {
       id,
       isIndexColumnVisible,
-      isSelectable,
+      isSelectColumnVisible,
       columns,
       height,
     } = this.props;
@@ -73,7 +73,7 @@ export default class ColumnHeader extends React.PureComponent {
         id={id}
         height={height}
       >
-        {isSelectable && this.renderSelectAllColumn()}
+        {isSelectColumnVisible && this.renderSelectAllColumn()}
         {isIndexColumnVisible && <HeaderColumn width={35}>#</HeaderColumn>}
         {columns && columns.map(this.renderColumn)}
       </Header>

@@ -49,25 +49,26 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | translations              | array of objects        | { search: 'Search', selectAll: 'All', showOnlySelected: 'Show only selected' } | Translations |
 | customTheme               | object                  | [themeDefaults](src/theme.js)                | Override theme                              |
 | isSearchable              | boolean                 | false                                        | Is list searchable                          |
-| isSelectable              | boolean                 | false                                        | Is list selectable                          |
+| isSelectColumnVisible     | boolean                 | false                                        | Is select column visible                    |
 | isSelectAllVisible        | boolean                 | false                                        | Is select all checkbox visible              |
 | isShowOnlySelectedVisible | boolean                 | false                                        | Is show only selected checkbox visible      |
 | isColumnHeaderVisible     | boolean                 | false                                        | Is column header visible                    |
 | isIndexColumnVisible      | boolean                 | false                                        | Is index column visible                     |
 | isItemBorderVisible       | boolean                 | true                                         | Is border visible between items             |
 | onSelectedChange          | function                | (selectedIds: array)                         | Callback for selected items change          |
-| onRowClick                | function                | (rowIndex: number, item: object)             | Callback for row click                      |
-| onRowDoubleClick          | function                | (rowIndex: number, item: object)             | Callback for row double click               |
-| onRowRightClick           | function                | (rowIndex: number, item: object)             | Callback for row right click                |
+| onRowClick                | function                | (item: object, rowIndex: number)             | Callback for row click                      |
+| onRowDoubleClick          | function                | (item: object, rowIndex: number)             | Callback for row double click               |
+| onRowRightClick           | function                | (item: object, rowIndex: number)             | Callback for row right click                |
+| onSelectAllClick          | function                |                                              | Callback for select all click               |
 
 #### `column` object attributes
-| Name            | Type             | Default / Parameters | Description                            |
-| --------------- | ---------------- | -------------------- | -------------------------------------- |
-| valueKey        | string           | 'value'              | Value key in the list                  |
-| title           | array of strings | 'Value'              | Title text to display in column header |
-| width           | number           | 200                  | Column width in pixels                 |
-| alignment       | string           | 'flex-start'         | Value for `justify-content` CSS rule   |
-| render          | function         | (item, index)        | Custom renderer function               |
+| Name            | Type             | Default / Parameters             | Description                            |
+| --------------- | ---------------- | -------------------------------- | -------------------------------------- |
+| valueKey        | string           | 'value'                          | Value key in the list                  |
+| title           | array of strings | 'Value'                          | Title text to display in column header |
+| width           | number or 'auto' | 200                              | Column width in pixels                 |
+| alignment       | string           | 'flex-start'                     | Value for `justify-content` CSS rule   |
+| render          | function         | (item: object, rowIndex: number) | Custom renderer function               |
 
 ### Theme
 You can use styled-components ThemeProvider to provide theme.

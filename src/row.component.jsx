@@ -33,8 +33,39 @@ export default class List extends React.PureComponent {
     isItemBorderVisible: PropTypes.bool.isRequired,
     columns: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     isSelected: PropTypes.bool.isRequired,
-    isSelectable: PropTypes.bool.isRequired,
+    isSelectColumnVisible: PropTypes.bool.isRequired,
     onSelectChange: PropTypes.func.isRequired,
+    onRowClick: PropTypes.func.isRequired,
+    onRowDoubleClick: PropTypes.func.isRequired,
+    onRowRightClick: PropTypes.func.isRequired,
+  }
+
+  handleRowClick = () => {
+    const {
+      item,
+      rowIndex,
+      onRowClick,
+    } = this.props;
+    onRowClick(item, rowIndex);
+  }
+
+  handleRowDoubleClick = () => {
+    const {
+      item,
+      rowIndex,
+      onRowDoubleClick,
+    } = this.props;
+    onRowDoubleClick(item, rowIndex);
+  }
+
+  handleRowRightClick = (e) => {
+    const {
+      item,
+      rowIndex,
+      onRowRightClick,
+    } = this.props;
+    onRowRightClick(item, rowIndex);
+    e.preventDefault();
   }
 
   renderSelectCell = () => {
@@ -101,15 +132,21 @@ export default class List extends React.PureComponent {
 
   render() {
     const {
-      isSelectable,
+      isSelectColumnVisible,
       isIndexColumnVisible,
       isItemBorderVisible,
       columns,
       itemHeight,
     } = this.props;
     return (
-      <Row height={itemHeight} isItemBorderVisible={isItemBorderVisible}>
-        {isSelectable && this.renderSelectCell()}
+      <Row
+        height={itemHeight}
+        isItemBorderVisible={isItemBorderVisible}
+        onClick={this.handleOnClick}
+        onDoubleClick={this.handleOnDoubleClick}
+        onRightClick={this.handleOnRightClick}
+      >
+        {isSelectColumnVisible && this.renderSelectCell()}
         {isIndexColumnVisible && this.renderIndexCell()}
         {columns.map(this.renderItemCell)}
       </Row>

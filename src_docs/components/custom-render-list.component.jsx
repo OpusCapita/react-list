@@ -97,17 +97,19 @@ export default class CustomRenderList extends React.PureComponent {
   }
 
   handleRemoveClick = id => () => {
+    const { items } = this.state;
     this.setState({
-      items: this.state.items.filter(i => i.id !== id),
+      items: items.filter(i => i.id !== id),
     });
   }
 
   handleCountryChange = id => (option) => {
-    const foundIndex = this.state.items.findIndex(i => i.id === id);
+    const { items } = this.state;
+    const foundIndex = items.findIndex(i => i.id === id);
     if (foundIndex > -1) {
-      const items = this.state.items.slice(0);
+      const newItems = items.slice(0);
       items[foundIndex].country = option.value;
-      this.setState({ items });
+      this.setState({ items: newItems });
     }
   }
 
