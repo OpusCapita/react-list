@@ -13,6 +13,11 @@ const ListContainer = styled.div`
   width: ${props => (props.width === 'auto' ? '100%' : `${props.width}px`)};
 `;
 
+const NoResultsText = styled.p`
+  text-align: center;
+  margin-top: 1rem;
+`;
+
 export default
 @withTheme
 class List extends React.PureComponent {
@@ -44,6 +49,7 @@ class List extends React.PureComponent {
       search: PropTypes.string,
       selectAll: PropTypes.string,
       showOnlySelected: PropTypes.string,
+      noResults: PropTypes.string,
     }),
     customTheme: themeShape, // theme override
     reactInfiniteProps: PropTypes.shape({}),
@@ -81,6 +87,7 @@ class List extends React.PureComponent {
       search: 'Search',
       selectAll: 'All',
       showOnlySelected: 'Show only selected',
+      noResults: 'There are no items to show in this list.',
     },
     customTheme: null,
     reactInfiniteProps: {},
@@ -291,6 +298,7 @@ class List extends React.PureComponent {
           reactInfiniteProps={reactInfiniteProps}
         >
           {filteredItems.map(this.renderRow)}
+          {!filteredItems.length && <NoResultsText>{translations.noResults}</NoResultsText>}
         </ResponsiveListContainer>
       </ListContainer>
     );
