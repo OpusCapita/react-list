@@ -1,7 +1,8 @@
 # Changelog
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
-## 0.5.0
+
+## 0.6.0
 * New translation object string `noResults` is now displayed when there's no list items to show
 
 ## 0.4.0
