@@ -46,7 +46,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | itemHeight                | number                  | 40                                           | Height of the item in the list in pixels    |
 | columnHeaderHeight        | number                  | 40                                           | Height of the column header in pixels       |
 | idKey                     | string                  | 'id'                                         | ID key of item data                         |
-| translations              | array of objects        | { search: 'Search', selectAll: 'All', showOnlySelected: 'Show only selected' } | Translations |
+| translations              | object                  | { search: 'Search', selectAll: 'All', showOnlySelected: 'Show only selected', noResults: 'There are no items to show in this list.' } | Translations |
 | customTheme               | object                  | [themeDefaults](src/theme.js)                | Override theme                              |
 | isSearchable              | boolean                 | false                                        | Is list searchable                          |
 | isSelectColumnVisible     | boolean                 | false                                        | Is select column visible                    |
