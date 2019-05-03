@@ -1,7 +1,7 @@
 {
   "author": "OpusCapita (www.opuscapita.com)",
   "name": "@opuscapita/react-list",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "private": false,
   "license": "MIT",
   "description": "OpusCapita - React List",
