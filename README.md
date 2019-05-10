@@ -58,7 +58,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | onSelectedChange          | function                | (selectedIds: array)                         | Callback for selected items change          |
 | onRowClick                | function                | (item: object, rowIndex: number)             | Callback for row click                      |
 | onRowDoubleClick          | function                | (item: object, rowIndex: number)             | Callback for row double click               |
-| onRowRightClick           | function                | (item: object, rowIndex: number)             | Callback for row right click                |
+| onRowContextMenu          | function                | (item: object, rowIndex: number)             | Callback for row context menu (right click) |
 | onSelectAllClick          | function                |                                              | Callback for select all click               |
 
 #### `column` object attributes
@@ -69,6 +69,11 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | width           | number or 'auto' | 200                              | Column width in pixels                 |
 | alignment       | string           | 'flex-start'                     | Value for `justify-content` CSS rule   |
 | render          | function         | (item: object, rowIndex: number) | Custom renderer function               |
+
+#### special item attributes
+| Name            | Type             | Default / Parameters             | Description                                                       |
+| --------------- | ---------------- | -------------------------------- | ----------------------------------------------------------------- |
+| isAlwaysVisible | boolean          | undefined                        | Should this item be always visible even if filters don't match it |
 
 ### Theme
 You can use styled-components ThemeProvider to provide theme.

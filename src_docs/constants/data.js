@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 import faker from 'faker';
 
 export const getSimpleData = (count) => {
@@ -18,20 +19,20 @@ export const getGroupData = () => {
   const groupId2 = faker.random.uuid();
   const groupId3 = faker.random.uuid();
   return [
-    { id: groupId1, value: faker.internet.domainName(), isGroup: true },
+    { id: groupId1, value: faker.internet.domainName(), isGroup: true, isAlwaysVisible: true },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId1 },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId1 },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId1 },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId1 },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId1 },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId1 },
-    { id: groupId2, value: faker.internet.domainName(), isGroup: true },
+    { id: groupId2, value: faker.internet.domainName(), isGroup: true, isAlwaysVisible: true },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId2 },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId2 },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId2 },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId2 },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId2 },
-    { id: groupId3, value: faker.internet.domainName(), isGroup: true },
+    { id: groupId3, value: faker.internet.domainName(), isGroup: true, isAlwaysVisible: true },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId3 },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId3 },
     { id: faker.random.uuid(), value: faker.internet.ip(), groupId: groupId3 },
@@ -60,7 +61,7 @@ export const getColumnData = (count) => {
     { valueKey: 'firstname', title: 'Firstname', width: 100 },
     { valueKey: 'lastname', title: 'Lastname', width: 100 },
     { valueKey: 'title', title: 'Title' },
-    { valueKey: 'phone', title: 'Phone number', alignment: 'flex-end', width: 150 }, // eslint-disable-line
+    { valueKey: 'phone', title: 'Phone number', alignment: 'flex-end', width: 150 },
     { valueKey: 'company', title: 'Company' },
   ];
   return {

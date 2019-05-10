@@ -2,6 +2,10 @@
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
+## 0.6.0
+* Renamed `onRowRightClick` to `onRowContextMenu`, because that's the correct one to use, there's no onRightClick.
+* Added `isAlwaysVisible` special attribute to show item even if filter/selection doesn't match
+
 ## 0.5.1
 * New translation object string `noResults` is now displayed when there's no list items to show
 
