@@ -37,7 +37,7 @@ export default class List extends React.PureComponent {
     onSelectChange: PropTypes.func.isRequired,
     onRowClick: PropTypes.func.isRequired,
     onRowDoubleClick: PropTypes.func.isRequired,
-    onRowRightClick: PropTypes.func.isRequired,
+    onRowContextMenu: PropTypes.func.isRequired,
   }
 
   handleRowClick = () => {
@@ -58,13 +58,13 @@ export default class List extends React.PureComponent {
     onRowDoubleClick(item, rowIndex);
   }
 
-  handleRowRightClick = (e) => {
+  handleOnContextMenu = (e) => {
     const {
       item,
       rowIndex,
-      onRowRightClick,
+      onRowContextMenu,
     } = this.props;
-    onRowRightClick(item, rowIndex);
+    onRowContextMenu(item, rowIndex);
     e.preventDefault();
   }
 
@@ -144,7 +144,7 @@ export default class List extends React.PureComponent {
         isItemBorderVisible={isItemBorderVisible}
         onClick={this.handleOnClick}
         onDoubleClick={this.handleOnDoubleClick}
-        onRightClick={this.handleOnRightClick}
+        onContextMenu={this.handleOnContextMenu}
       >
         {isSelectColumnVisible && this.renderSelectCell()}
         {isIndexColumnVisible && this.renderIndexCell()}

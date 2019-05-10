@@ -68,7 +68,7 @@ class List extends React.PureComponent {
     onSelectedChange: PropTypes.func,
     onRowClick: PropTypes.func,
     onRowDoubleClick: PropTypes.func,
-    onRowRightClick: PropTypes.func,
+    onRowContextMenu: PropTypes.func,
     onSelectAllClick: PropTypes.func,
   }
 
@@ -102,7 +102,7 @@ class List extends React.PureComponent {
     onSelectedChange: () => {},
     onRowClick: () => {},
     onRowDoubleClick: () => {},
-    onRowRightClick: () => {},
+    onRowContextMenu: () => {},
     onSelectAllClick: () => {},
   }
 
@@ -161,6 +161,9 @@ class List extends React.PureComponent {
     // https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization
     return memoize((items, selectedItems, searchKeyword, showOnlySelected) => items.filter((i) => {
       let hit = false;
+      if (i.isAlwaysVisible) {
+        return true;
+      }
       if (showOnlySelected && !selectedItems.includes(i[idKey])) {
         return false;
       }
@@ -197,7 +200,7 @@ class List extends React.PureComponent {
       isSelectColumnVisible,
       onRowClick,
       onRowDoubleClick,
-      onRowRightClick,
+      onRowContextMenu,
     } = this.props;
     const isSelected = selectedItems.includes(item[idKey]);
     return (
@@ -215,7 +218,7 @@ class List extends React.PureComponent {
         onSelectChange={this.handleItemSelectChange(item[idKey], isSelected)}
         onRowClick={onRowClick}
         onRowDoubleClick={onRowDoubleClick}
-        onRowRightClick={onRowRightClick}
+        onRowContextMenu={onRowContextMenu}
       />
     );
   }
