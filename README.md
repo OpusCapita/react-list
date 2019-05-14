@@ -55,11 +55,13 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | isColumnHeaderVisible     | boolean                 | false                                        | Is column header visible                    |
 | isIndexColumnVisible      | boolean                 | false                                        | Is index column visible                     |
 | isItemBorderVisible       | boolean                 | true                                         | Is border visible between items             |
+| isSortable                | boolean                 | false                                        | Enable drag'n'drop sorting                  |
 | onSelectedChange          | function                | (selectedIds: array)                         | Callback for selected items change          |
 | onRowClick                | function                | (item: object, rowIndex: number)             | Callback for row click                      |
 | onRowDoubleClick          | function                | (item: object, rowIndex: number)             | Callback for row double click               |
 | onRowContextMenu          | function                | (item: object, rowIndex: number)             | Callback for row context menu (right click) |
 | onSelectAllClick          | function                |                                              | Callback for select all click               |
+| onSortEnd                 | function                | ({ oldIndex: number, newIndex: number })     | Callback for sort end                       |
 
 #### `column` object attributes
 | Name            | Type             | Default / Parameters             | Description                            |
@@ -103,12 +105,28 @@ export default class ReactView extends React.Component {
 }
 ```
 
-## Column list with custom ID field and column header visible
+## Column list with custom ID field, column header visible, sorting enabled
 ```jsx
 import React from 'react';
 import List from '@opuscapita/react-list';
+import arrayMove from 'array-move';
 
 export default class ReactView extends React.Component {
+  state = {
+    items: [
+      { itemId: 1, name: 'Valve', price: 15.99, tax: 24 },
+      { itemId: 2, name: 'Crankshaft', price: 359.99, tax: 24 },
+      { itemId: 3, name: 'Carburetor', price: 299.99, tax: 24 },
+    ],
+  }
+
+  handleSortEnd = ({ oldIndex, newIndex }) => {
+    const { items } = this.state;
+    this.setState({
+      items: arrayMove(items, oldIndex, newIndex),
+    });
+  };
+
   render() {
     const columns = [
       { valueKey: 'name', valueTitle: 'Item' },
@@ -126,6 +144,8 @@ export default class ReactView extends React.Component {
         items={items}
         idKey="itemId"
         isColumnHeaderVisible
+        isSortable
+        onSortEnd={handleSortEnd}
       />
     );
   }

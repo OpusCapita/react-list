@@ -14,7 +14,6 @@ import packageConfig from '../../package.json';
 import SimpleList from '../components/simple-list.component';
 import CustomRenderList from '../components/custom-render-list.component';
 import GroupList from '../components/group-list.component';
-import { getColumnData, getSimpleData, getGroupData } from '../constants/data';
 
 const packageDescription = packageConfig.description;
 const packageName = packageConfig.name.replace('@opuscapita/', '');
@@ -24,10 +23,6 @@ const ListContainer = styled.div`
   height: calc(100vh - 66px);
   overflow: auto;
 `;
-
-const simpleListData = getSimpleData(100);
-const columnListData = getColumnData(100);
-const groupListData = getGroupData();
 
 export default class ExampleContainer extends React.PureComponent {
   state = {
@@ -41,6 +36,7 @@ export default class ExampleContainer extends React.PureComponent {
     isSelectColumnVisible: false,
     isSelectAllVisible: false,
     isShowOnlySelectedVisible: false,
+    isSortable: true,
   }
 
   changeNumberProp = prop => (e) => {
@@ -115,6 +111,7 @@ export default class ExampleContainer extends React.PureComponent {
               {this.renderCheckbox('isSelectColumnVisible')}
               {this.renderCheckbox('isSelectAllVisible')}
               {this.renderCheckbox('isShowOnlySelectedVisible')}
+              {this.renderCheckbox('isSortable')}
               {this.renderNumberInput('itemHeight')}
               {this.renderNumberInput('columnHeaderHeight')}
             </Panel>
@@ -124,12 +121,12 @@ export default class ExampleContainer extends React.PureComponent {
               <ThemeProvider theme={theme}>
                 <ListContainer>
                   <Switch>
-                    <Route path="/" exact render={() => <SimpleList key="1" items={simpleListData.items} {...this.state} />} />
-                    <Route path="/columns" render={() => <SimpleList key="2" items={columnListData.items} columns={columnListData.columns} {...this.state} />} />
+                    <Route path="/" exact render={() => <SimpleList key="1" {...this.state} />} />
+                    <Route path="/columns" render={() => <SimpleList useColumnData key="2" {...this.state} />} />
                     <Route path="/custom-render" render={() => <CustomRenderList key="3" {...this.state} />} />
-                    <Route path="/fixed-height" render={() => <SimpleList key="4" items={columnListData.items} columns={columnListData.columns} height={400} {...this.state} />} />
-                    <Route path="/fixed-size" render={() => <SimpleList key="5" items={columnListData.items} columns={columnListData.columns} height={400} width={400} {...this.state} />} />
-                    <Route path="/groups" render={() => <GroupList key="6" items={groupListData} {...this.state} />} />
+                    <Route path="/fixed-height" render={() => <SimpleList useColumnData key="4" height={400} {...this.state} />} />
+                    <Route path="/fixed-size" render={() => <SimpleList key="5" height={400} width={400} {...this.state} />} />
+                    <Route path="/groups" render={() => <GroupList key="6" {...this.state} />} />
                   </Switch>
                 </ListContainer>
               </ThemeProvider>

@@ -63,6 +63,7 @@ class List extends React.PureComponent {
     isIndexColumnVisible: PropTypes.bool,
     isItemBorderVisible: PropTypes.bool,
     isAllSelected: PropTypes.bool,
+    isSortable: PropTypes.bool,
 
     // actions
     onSelectedChange: PropTypes.func,
@@ -70,6 +71,7 @@ class List extends React.PureComponent {
     onRowDoubleClick: PropTypes.func,
     onRowContextMenu: PropTypes.func,
     onSelectAllClick: PropTypes.func,
+    onSortEnd: PropTypes.func,
   }
 
   static defaultProps = {
@@ -99,11 +101,15 @@ class List extends React.PureComponent {
     isIndexColumnVisible: false,
     isItemBorderVisible: true,
     isAllSelected: null,
+    isSortable: false,
     onSelectedChange: () => {},
     onRowClick: () => {},
     onRowDoubleClick: () => {},
     onRowContextMenu: () => {},
     onSelectAllClick: () => {},
+    onSortEnd: () => {
+      console.warn('@opuscapita/react-list: You must implement onSortEnd function to make sorting work! example: https://github.com/clauderic/react-sortable-hoc#basic-example'); // eslint-disable-line
+    },
   }
 
   constructor(props) {
@@ -191,13 +197,14 @@ class List extends React.PureComponent {
   renderRow = (item, rowIndex) => {
     const {
       id,
+      columns,
       selectedItems,
       idKey,
       itemHeight,
       isIndexColumnVisible,
       isItemBorderVisible,
-      columns,
       isSelectColumnVisible,
+      isSortable,
       onRowClick,
       onRowDoubleClick,
       onRowContextMenu,
@@ -215,6 +222,7 @@ class List extends React.PureComponent {
         isSelected={isSelected}
         isSelectColumnVisible={isSelectColumnVisible}
         isItemBorderVisible={isItemBorderVisible}
+        isSortable={isSortable}
         onSelectChange={this.handleItemSelectChange(item[idKey], isSelected)}
         onRowClick={onRowClick}
         onRowDoubleClick={onRowDoubleClick}
@@ -241,8 +249,10 @@ class List extends React.PureComponent {
       isSelectAllVisible,
       isShowOnlySelectedVisible,
       isAllSelected,
+      isSortable,
       translations,
       reactInfiniteProps,
+      onSortEnd,
     } = this.props;
     const {
       showOnlySelected,
@@ -298,7 +308,9 @@ class List extends React.PureComponent {
           columnHeaderHeight={columnHeaderHeight}
           isHeaderVisible={isHeaderVisible}
           isColumnHeaderVisible={isColumnHeaderVisible}
+          isSortable={isSortable}
           reactInfiniteProps={reactInfiniteProps}
+          onSortEnd={onSortEnd}
         >
           {filteredItems.map(this.renderRow)}
           {!filteredItems.length && <NoResultsText>{translations.noResults}</NoResultsText>}

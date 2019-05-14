@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import arrayMove from 'array-move';
 import Checkbox from '@opuscapita/react-checkbox';
 import List from '../../src/index';
+import { getGroupData } from '../constants/data';
 
 const ItemTextContainer = styled.span`
   text-overflow: ellipsis;
@@ -21,14 +22,11 @@ const ItemContainer = styled.div`
 `;
 
 export default class GroupList extends React.PureComponent {
-  static propTypes = {
-    items: PropTypes.array.isRequired, // eslint-disable-line
-  }
-
   state = {
     isAllSelected: false,
     selectedItems: [], // contains all normal items that are selected
     columns: [],
+    items: [],
   }
 
   componentDidMount() {
@@ -50,13 +48,16 @@ export default class GroupList extends React.PureComponent {
       },
 
     ];
-    this.setState({ columns });
+    const items = getGroupData();
+    this.setState({
+      items,
+      columns,
+    });
   }
 
   // Can be group or normal item
   isItemSelected = (item) => {
-    const { items } = this.props;
-    const { selectedItems } = this.state;
+    const { items, selectedItems } = this.state;
     const selectedIdMap = selectedItems.map(i => i.id);
     if (item.isGroup) {
       // in case of group level item, check if all items in group are selected
@@ -73,7 +74,7 @@ export default class GroupList extends React.PureComponent {
 
   // can be group or normal item
   handleItemSelectClick = item => () => {
-    const { items } = this.props;
+    const { items } = this.state;
     const isSelected = this.isItemSelected(item);
     let { selectedItems } = this.state;
     if (item.isGroup) {
@@ -95,8 +96,7 @@ export default class GroupList extends React.PureComponent {
   }
 
   handleSelectAllClick = () => {
-    const { items } = this.props;
-    const { isAllSelected } = this.state;
+    const { items, isAllSelected } = this.state;
     if (isAllSelected) {
       // Deselect all
       this.setState({
@@ -112,17 +112,27 @@ export default class GroupList extends React.PureComponent {
     }
   }
 
+  handleSortEnd = ({ oldIndex, newIndex }) => {
+    const { items } = this.state;
+    this.setState({
+      items: arrayMove(items, oldIndex, newIndex),
+    });
+  };
+
   render() {
     const {
       isAllSelected,
       selectedItems,
+      items,
       columns,
     } = this.state;
     return (
       <List
-        selectedItems={selectedItems.map(i => i.id)}
-        {...this.props}
+        items={items}
         columns={columns}
+        selectedItems={selectedItems.map(i => i.id)}
+        onSortEnd={this.handleSortEnd}
+        {...this.props}
         isAllSelected={isAllSelected}
         onSelectAllClick={this.handleSelectAllClick}
       />
