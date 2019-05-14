@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaTrashAlt } from 'react-icons/fa';
+import arrayMove from 'array-move';
 import { Primitive } from '@opuscapita/oc-cm-common-layouts';
 import { FloatingSelectPortal } from '@opuscapita/react-floating-select';
 import List from '../../src/index';
@@ -113,6 +114,13 @@ export default class CustomRenderList extends React.PureComponent {
     }
   }
 
+  handleSortEnd = ({ oldIndex, newIndex }) => {
+    const { items } = this.state;
+    this.setState({
+      items: arrayMove(items, oldIndex, newIndex),
+    });
+  };
+
   renderActionBar = () => (
     <ActionBarContainer>
       <Primitive.Button
@@ -135,6 +143,7 @@ export default class CustomRenderList extends React.PureComponent {
         <List
           selectedItems={selectedItems}
           onSelectedChange={this.onSelectedChange}
+          onSortEnd={this.handleSortEnd}
           {...this.props}
           items={items}
           columns={columns}

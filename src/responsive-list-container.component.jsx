@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import Infinite from 'react-infinite';
 import { debounce } from 'debounce';
 
@@ -10,16 +11,56 @@ const ListContainer = styled.div`
   border: 1px solid ${props => props.theme.colors.grey7};
   padding: 0;
   margin: 0;
+  overflow: hidden;
 `;
 
 const ItemContainer = styled.div`
   flex-direction: column;
+  flex: 1 1 auto;
   min-height: 0px;
-  min-width: 100%;
+  min-width: 0;
   overflow: hidden;
   padding: 0;
   margin: 0;
 `;
+
+const Item = ({ value }) => <ItemContainer>{value}</ItemContainer>;
+Item.propTypes = {
+  value: PropTypes.node.isRequired,
+};
+
+const InfiniteList = ({ items, reactInfiniteProps }) => (
+  <Infinite {...reactInfiniteProps}>
+    {items.map((value, index) => (
+      <Item
+        key={`item-${index}`} // eslint-disable-line
+        index={index}
+        value={value}
+      />
+    ))}
+  </Infinite>
+);
+InfiniteList.propTypes = {
+  items: PropTypes.array.isRequired, // eslint-disable-line
+  reactInfiniteProps: PropTypes.shape({}).isRequired,
+};
+
+const SortableItem = sortableElement(Item);
+const SortableInfiniteList = sortableContainer(({ items, reactInfiniteProps }) => (
+  <Infinite {...reactInfiniteProps}>
+    {items.map((value, index) => (
+      <SortableItem
+        key={`item-${index}`} // eslint-disable-line
+        index={index}
+        value={value}
+      />
+    ))}
+  </Infinite>
+));
+SortableInfiniteList.propTypes = {
+  items: PropTypes.array.isRequired, // eslint-disable-line
+  reactInfiniteProps: PropTypes.shape({}).isRequired,
+};
 
 export default class ResponsiveListContainer extends React.PureComponent {
   static propTypes = {
@@ -33,7 +74,9 @@ export default class ResponsiveListContainer extends React.PureComponent {
     columnHeaderHeight: PropTypes.number.isRequired,
     isHeaderVisible: PropTypes.bool.isRequired,
     isColumnHeaderVisible: PropTypes.bool.isRequired,
+    isSortable: PropTypes.bool.isRequired,
     reactInfiniteProps: PropTypes.shape({}).isRequired,
+    onSortEnd: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -88,13 +131,6 @@ export default class ResponsiveListContainer extends React.PureComponent {
     }
   }
 
-  // List item
-  renderItem = () => (data, index) => (
-    <ItemContainer key={index}>
-      { data }
-    </ItemContainer>
-  )
-
   render() {
     const {
       children,
@@ -103,11 +139,23 @@ export default class ResponsiveListContainer extends React.PureComponent {
       columnHeaderHeight,
       isHeaderVisible,
       isColumnHeaderVisible,
+      isSortable,
       reactInfiniteProps,
+      onSortEnd,
     } = this.props;
     const {
       listContainerHeight,
     } = this.state;
+    const listProps = {
+      reactInfiniteProps: {
+        containerHeight: listContainerHeight,
+        elementHeight: itemHeight,
+        ...reactInfiniteProps,
+      },
+      items: React.Children.toArray(children),
+      isSortable,
+      onSortEnd,
+    };
     let headerHeight = isColumnHeaderVisible ? columnHeaderHeight : 0;
     if (isHeaderVisible) headerHeight += 40;
     return (
@@ -116,13 +164,10 @@ export default class ResponsiveListContainer extends React.PureComponent {
         headerHeight={headerHeight}
         ref={(r) => { this.listContainerRef = r; }}
       >
-        <Infinite
-          containerHeight={listContainerHeight}
-          elementHeight={itemHeight}
-          {...reactInfiniteProps}
-        >
-          { React.Children.map(children, this.renderItem()) }
-        </Infinite>
+        { isSortable
+          ? <SortableInfiniteList {...listProps} useDragHandle />
+          : <InfiniteList {...listProps} />
+        }
       </ListContainer>
     );
   }

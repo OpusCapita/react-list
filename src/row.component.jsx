@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { SortableHandle } from 'react-sortable-hoc';
 import Checkbox from '@opuscapita/react-checkbox';
+import { Icon } from '@opuscapita/react-icons';
 import Column from './column.component';
 
 const Row = styled.div`
@@ -23,6 +25,15 @@ const DefaultCellContainer = styled.span`
   overflow: hidden;
 `;
 
+const HandleIcon = styled(Icon)`
+  margin-right: 0;
+  margin-left: auto;
+  display: flex;
+  width: 4rem;
+`;
+
+const DragHandle = SortableHandle(() => <HandleIcon type="indicator" name="draggingArrows" />);
+
 export default class List extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
@@ -34,6 +45,7 @@ export default class List extends React.PureComponent {
     columns: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     isSelected: PropTypes.bool.isRequired,
     isSelectColumnVisible: PropTypes.bool.isRequired,
+    isSortable: PropTypes.bool.isRequired,
     onSelectChange: PropTypes.func.isRequired,
     onRowClick: PropTypes.func.isRequired,
     onRowDoubleClick: PropTypes.func.isRequired,
@@ -135,6 +147,7 @@ export default class List extends React.PureComponent {
       isSelectColumnVisible,
       isIndexColumnVisible,
       isItemBorderVisible,
+      isSortable,
       columns,
       itemHeight,
     } = this.props;
@@ -149,6 +162,7 @@ export default class List extends React.PureComponent {
         {isSelectColumnVisible && this.renderSelectCell()}
         {isIndexColumnVisible && this.renderIndexCell()}
         {columns.map(this.renderItemCell)}
+        {isSortable && <DragHandle />}
       </Row>
     );
   }
