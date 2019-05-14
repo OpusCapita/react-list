@@ -8,7 +8,7 @@ Highly configurable react list component
 * Responsive or fixed size
 * Columns with headers
 * Selectable items
-* Drag'n'drop ordering (coming soon)
+* Drag'n'drop ordering
 
 ### Installation
 ```
