@@ -2,6 +2,10 @@
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
+## 1.0.0
+* Sorting with drag'n'drop
+* Added `isSortable` and `onSortEnd` props
+
 ## 0.6.0
 * Renamed `onRowRightClick` to `onRowContextMenu`, because that's the correct one to use, there's no onRightClick.
 * Added `isAlwaysVisible` special attribute to show item even if filter/selection doesn't match
