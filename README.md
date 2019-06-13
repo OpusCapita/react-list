@@ -39,7 +39,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | __items__                 | array of item objects   | __required__                                 | Array of items in the list                  |
 | id                        | string                  | oc-react-list                                | Component base id                           |
 | className                 | string                  |                                              | Component class                             |
-| columns                   | array of column objects | [{ valueKey: 'value', valueTitle: 'value' }] | Array of columns in the list                |
+| columns                   | array of column objects | [{ valueKey: 'value', title: 'value' }]      | Array of columns in the list                |
 | selectedItems             | array of id's           | []                                           | Array of selected item id's                 |
 | height                    | number or 'auto'        | 'auto'                                       | Height of the list in pixels                |
 | width                     | number or 'auto'        | 'auto'                                       | Width of the list in pixels                 |
@@ -129,9 +129,9 @@ export default class ReactView extends React.Component {
 
   render() {
     const columns = [
-      { valueKey: 'name', valueTitle: 'Item' },
-      { valueKey: 'price', valueTitle: 'Price' },
-      { valueKey: 'tax', valueTitle: 'Tax %' },
+      { valueKey: 'name', title: 'Item' },
+      { valueKey: 'price', title: 'Price' },
+      { valueKey: 'tax', title: 'Tax %' },
     ];
     const items = [
       { itemId: 1, name: 'Valve', price: 15.99, tax: 24 },
