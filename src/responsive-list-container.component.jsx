@@ -22,11 +22,16 @@ const ItemContainer = styled.div`
   overflow: hidden;
   padding: 0;
   margin: 0;
+  z-index: ${props => props.dragItemZindex};
 `;
 
-const Item = ({ value }) => <ItemContainer>{value}</ItemContainer>;
+const Item = ({
+  value,
+  dragItemZindex,
+}) => <ItemContainer dragItemZindex={dragItemZindex}>{value}</ItemContainer>;
 Item.propTypes = {
   value: PropTypes.node.isRequired,
+  dragItemZindex: PropTypes.number.isRequired,
 };
 
 const InfiniteList = ({ items, reactInfiniteProps }) => (
@@ -46,13 +51,14 @@ InfiniteList.propTypes = {
 };
 
 const SortableItem = sortableElement(Item);
-const SortableInfiniteList = sortableContainer(({ items, reactInfiniteProps }) => (
+const SortableInfiniteList = sortableContainer(({ items, reactInfiniteProps, dragItemZindex }) => (
   <Infinite {...reactInfiniteProps}>
     {items.map((value, index) => (
       <SortableItem
         key={`item-${index}`} // eslint-disable-line
         index={index}
         value={value}
+        dragItemZindex={dragItemZindex}
       />
     ))}
   </Infinite>
@@ -60,6 +66,7 @@ const SortableInfiniteList = sortableContainer(({ items, reactInfiniteProps }) =
 SortableInfiniteList.propTypes = {
   items: PropTypes.array.isRequired, // eslint-disable-line
   reactInfiniteProps: PropTypes.shape({}).isRequired,
+  dragItemZindex: PropTypes.number.isRequired,
 };
 
 export default class ResponsiveListContainer extends React.PureComponent {
@@ -72,6 +79,7 @@ export default class ResponsiveListContainer extends React.PureComponent {
     ]).isRequired,
     itemHeight: PropTypes.number.isRequired,
     columnHeaderHeight: PropTypes.number.isRequired,
+    dragItemZindex: PropTypes.number.isRequired,
     isHeaderVisible: PropTypes.bool.isRequired,
     isColumnHeaderVisible: PropTypes.bool.isRequired,
     isSortable: PropTypes.bool.isRequired,
@@ -137,6 +145,7 @@ export default class ResponsiveListContainer extends React.PureComponent {
       id,
       itemHeight,
       columnHeaderHeight,
+      dragItemZindex,
       isHeaderVisible,
       isColumnHeaderVisible,
       isSortable,
@@ -155,6 +164,7 @@ export default class ResponsiveListContainer extends React.PureComponent {
       items: React.Children.toArray(children),
       isSortable,
       onSortEnd,
+      dragItemZindex,
     };
     let headerHeight = isColumnHeaderVisible ? columnHeaderHeight : 0;
     if (isHeaderVisible) headerHeight += 40;

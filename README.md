@@ -45,6 +45,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | width                     | number or 'auto'        | 'auto'                                       | Width of the list in pixels                 |
 | itemHeight                | number                  | 40                                           | Height of the item in the list in pixels    |
 | columnHeaderHeight        | number                  | 40                                           | Height of the column header in pixels       |
+| dragItemZindex            | number                  | 1060                                         | draggable items z-index                     |
 | idKey                     | string                  | 'id'                                         | ID key of item data                         |
 | translations              | object                  | { search: 'Search', selectAll: 'All', showOnlySelected: 'Show only selected', noResults: 'There are no items to show in this list.' } | Translations |
 | customTheme               | object                  | [themeDefaults](src/theme.js)                | Override theme                              |

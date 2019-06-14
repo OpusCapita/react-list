@@ -14,6 +14,7 @@ import packageConfig from '../../package.json';
 import SimpleList from '../components/simple-list.component';
 import CustomRenderList from '../components/custom-render-list.component';
 import GroupList from '../components/group-list.component';
+import ListInModalContainer from './example-list-modal.component';
 
 const packageDescription = packageConfig.description;
 const packageName = packageConfig.name.replace('@opuscapita/', '');
@@ -37,6 +38,7 @@ export default class ExampleContainer extends React.PureComponent {
     isSelectAllVisible: false,
     isShowOnlySelectedVisible: false,
     isSortable: true,
+    dragItemZindex: 1060,
   }
 
   changeNumberProp = prop => (e) => {
@@ -102,6 +104,8 @@ export default class ExampleContainer extends React.PureComponent {
               <br />
               <Link to="/groups" href="/groups">Groups</Link>
               <br />
+              <Link to="/modal" href="/modal">List in BS Modal</Link>
+              <br />
             </Panel>
             <Panel style={{ padding: '20px' }}>
               {this.renderCheckbox('isIndexColumnVisible')}
@@ -112,6 +116,7 @@ export default class ExampleContainer extends React.PureComponent {
               {this.renderCheckbox('isSelectAllVisible')}
               {this.renderCheckbox('isShowOnlySelectedVisible')}
               {this.renderCheckbox('isSortable')}
+              {this.renderNumberInput('dragItemZindex')}
               {this.renderNumberInput('itemHeight')}
               {this.renderNumberInput('columnHeaderHeight')}
             </Panel>
@@ -127,6 +132,7 @@ export default class ExampleContainer extends React.PureComponent {
                     <Route path="/fixed-height" render={() => <SimpleList useColumnData key="4" height={400} {...this.state} />} />
                     <Route path="/fixed-size" render={() => <SimpleList key="5" height={400} width={400} {...this.state} />} />
                     <Route path="/groups" render={() => <GroupList key="6" {...this.state} />} />
+                    <Route path="/modal" render={() => <ListInModalContainer key="7" {...this.state} />} />
                   </Switch>
                 </ListContainer>
               </ThemeProvider>
