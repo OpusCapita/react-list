@@ -44,6 +44,7 @@ class List extends React.PureComponent {
     ]),
     itemHeight: PropTypes.number,
     columnHeaderHeight: PropTypes.number,
+    dragItemZindex: PropTypes.number,
     idKey: PropTypes.string, // key of id in list data
     translations: PropTypes.shape({
       search: PropTypes.string,
@@ -84,6 +85,7 @@ class List extends React.PureComponent {
     width: 'auto',
     itemHeight: 40,
     columnHeaderHeight: 40,
+    dragItemZindex: 1060,
     idKey: 'id',
     translations: {
       search: 'Search',
@@ -243,6 +245,7 @@ class List extends React.PureComponent {
       width,
       itemHeight,
       columnHeaderHeight,
+      dragItemZindex,
       isColumnHeaderVisible,
       isSearchable,
       isSelectColumnVisible,
@@ -306,6 +309,7 @@ class List extends React.PureComponent {
           height={height}
           itemHeight={itemHeight}
           columnHeaderHeight={columnHeaderHeight}
+          dragItemZindex={dragItemZindex}
           isHeaderVisible={isHeaderVisible}
           isColumnHeaderVisible={isColumnHeaderVisible}
           isSortable={isSortable}
