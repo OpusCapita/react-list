@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Checkbox from '@opuscapita/react-checkbox';
 import Column from './column.component';
 
+
 const Header = styled.header`
   display: flex;
   height: ${props => props.height}px;
@@ -15,7 +16,7 @@ const Header = styled.header`
 `;
 
 const HeaderColumn = styled(Column)`
-  border-right: 1px solid ${props => props.theme.colors.grey7};
+  border-right: ${props => (props.isLastColumn ? 'none' : `1px solid ${props.theme.colors.grey7}`)};
 `;
 
 export default class ColumnHeader extends React.PureComponent {
@@ -50,15 +51,20 @@ export default class ColumnHeader extends React.PureComponent {
     );
   }
 
-  renderColumn = (column, idx) => (
-    <HeaderColumn
-      key={column.valueKey || idx}
-      width={column.width || 200}
-      alignment={column.alignment || 'flex-start'}
-    >
-      <span>{column.title || ''}</span>
-    </HeaderColumn>
-  )
+  renderColumn = (column, idx) => {
+    const { columns } = this.props;
+
+    return (
+      <HeaderColumn
+        key={column.valueKey || idx}
+        width={column.width || 200}
+        alignment={column.alignment || 'flex-start'}
+        isLastColumn={columns.length - 1 === idx}
+      >
+        <span>{column.title || ''}</span>
+      </HeaderColumn>
+    );
+  }
 
   render() {
     const {

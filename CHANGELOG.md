@@ -4,6 +4,7 @@
 ## <next>
 * Add `dragItemZindex` prop for raising the SortableItems z-index on top of e.g. bootstrap Modal.
 * Added new example to show `dragItemZindex` in action.
+* Removed the right border of the last header column
 
 ## 1.0.0
 * Sorting with drag'n'drop
