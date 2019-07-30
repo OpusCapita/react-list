@@ -1,7 +1,7 @@
 # Changelog
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
-## <next>
+## 1.1.0
 * Add `dragItemZindex` prop for raising the SortableItems z-index on top of e.g. bootstrap Modal.
 * Added new example to show `dragItemZindex` in action.
 * Removed the right border of the last header column
