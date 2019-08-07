@@ -4,6 +4,9 @@
 
 ## <next>
 
+## 1.1.2
+* Fixed `onRowDoubleClick` 
+* 
 ## 1.1.1
 * Fixed `onRowClick` 
   

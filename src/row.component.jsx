@@ -156,7 +156,7 @@ export default class List extends React.PureComponent {
         height={itemHeight}
         isItemBorderVisible={isItemBorderVisible}
         onClick={this.handleRowClick}
-        onDoubleClick={this.handleOnDoubleClick}
+        onDoubleClick={this.handleRowDoubleClick}
         onContextMenu={this.handleOnContextMenu}
       >
         {isSelectColumnVisible && this.renderSelectCell()}
