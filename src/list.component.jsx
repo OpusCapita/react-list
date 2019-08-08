@@ -33,6 +33,10 @@ class List extends React.PureComponent {
       PropTypes.number,
       PropTypes.string,
     ])),
+    highlightedItems: PropTypes.arrayOf(PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ])),
     columns: PropTypes.arrayOf(PropTypes.shape({})),
     height: PropTypes.oneOfType([
       PropTypes.number,
@@ -80,6 +84,7 @@ class List extends React.PureComponent {
     id: 'oc-react-list',
     className: '',
     selectedItems: [],
+    highlightedItems: [],
     columns: [{ valueKey: 'value', title: 'Value' }],
     height: 'auto',
     width: 'auto',
@@ -210,11 +215,13 @@ class List extends React.PureComponent {
       onRowClick,
       onRowDoubleClick,
       onRowContextMenu,
+      highlightedItems,
     } = this.props;
     const isSelected = selectedItems.includes(item[idKey]);
     return (
       <Row
         id={`${id}-row-${rowIndex}`}
+        idKey={idKey}
         key={item[idKey]}
         item={item}
         rowIndex={rowIndex}
@@ -229,6 +236,7 @@ class List extends React.PureComponent {
         onRowClick={onRowClick}
         onRowDoubleClick={onRowDoubleClick}
         onRowContextMenu={onRowContextMenu}
+        highlightedItems={highlightedItems}
       />
     );
   }

@@ -31,6 +31,7 @@ const SearchContainer = styled.div`
   min-height: 0px;
   min-width: 0px;
   overflow: visible;
+  max-width: 300px;
 `;
 
 const StyledCheckbox = styled(Checkbox)`

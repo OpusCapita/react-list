@@ -12,7 +12,7 @@ const Row = styled.div`
   border-bottom: ${props => (props.isItemBorderVisible ? `1px solid ${props.theme.colors.grey6}` : 'none')};
   /* cursor: pointer; */
   align-items: center;
-  background: ${props => (props.selected ? props.theme.colors.grey5 : props.theme.colors.white)};
+  background: ${props => (props.selected || props.isHighlighted ? props.theme.colors.grey5 : props.theme.colors.white)};
   &:hover {
     background: ${props => props.theme.colors.grey4};
   }
@@ -37,6 +37,7 @@ const DragHandle = SortableHandle(() => <HandleIcon type="indicator" name="dragg
 export default class List extends React.PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
+    idKey: PropTypes.string.isRequired,
     item: PropTypes.shape({}).isRequired,
     itemHeight: PropTypes.number.isRequired,
     rowIndex: PropTypes.number.isRequired,
@@ -50,6 +51,10 @@ export default class List extends React.PureComponent {
     onRowClick: PropTypes.func.isRequired,
     onRowDoubleClick: PropTypes.func.isRequired,
     onRowContextMenu: PropTypes.func.isRequired,
+    highlightedItems: PropTypes.arrayOf(PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ])).isRequired,
   }
 
   handleRowClick = () => {
@@ -78,6 +83,11 @@ export default class List extends React.PureComponent {
     } = this.props;
     onRowContextMenu(item, rowIndex);
     e.preventDefault();
+  }
+
+  isRowHighlighted = () => {
+    const { highlightedItems, item, idKey } = this.props;
+    return highlightedItems.includes(item[idKey]);
   }
 
   renderSelectCell = () => {
@@ -158,6 +168,7 @@ export default class List extends React.PureComponent {
         onClick={this.handleRowClick}
         onDoubleClick={this.handleRowDoubleClick}
         onContextMenu={this.handleOnContextMenu}
+        isHighlighted={this.isRowHighlighted()}
       >
         {isSelectColumnVisible && this.renderSelectCell()}
         {isIndexColumnVisible && this.renderIndexCell()}

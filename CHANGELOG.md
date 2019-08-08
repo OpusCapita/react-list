@@ -3,6 +3,8 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## <next>
+* Added `highlightedItems` prop
+* Maximum length of the search container is now set to 300px
 
 ## 1.1.2
 * Fixed `onRowDoubleClick` 
