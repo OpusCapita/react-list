@@ -49,6 +49,7 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | idKey                     | string                  | 'id'                                         | ID key of item data                         |
 | translations              | object                  | { search: 'Search', selectAll: 'All', showOnlySelected: 'Show only selected', noResults: 'There are no items to show in this list.' } | Translations |
 | customTheme               | object                  | [themeDefaults](src/theme.js)                | Override theme                              |
+| highlightedItems          | array                   | []                                           | List of ID keys of items to be highlighted with a grey background color |
 | isSearchable              | boolean                 | false                                        | Is list searchable                          |
 | isSelectColumnVisible     | boolean                 | false                                        | Is select column visible                    |
 | isSelectAllVisible        | boolean                 | false                                        | Is select all checkbox visible              |
