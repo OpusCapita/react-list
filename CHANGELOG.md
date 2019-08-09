@@ -2,7 +2,7 @@
 
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
-## <next>
+## 1.2.0
 * Added `highlightedItems` prop
 * Maximum length of the search container is now set to 300px
 
