@@ -108,6 +108,7 @@ export default class Header extends React.PureComponent {
       <ShowOnlySelectedContainer>
         <StyledCheckbox
           id={`${id}-showonlyselected`}
+          name={`${id}-showonlyselected`}
           checked={isShowOnlySelected}
           onChange={onShowOnlySelectedChange}
           label={translations.showOnlySelected}

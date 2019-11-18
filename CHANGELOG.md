@@ -4,6 +4,7 @@
 
 ## next
 * Upgrade packages
+* Add name attribute to "Show only selected" checkbox
 
 ## 1.2.0
 * Added `highlightedItems` prop
