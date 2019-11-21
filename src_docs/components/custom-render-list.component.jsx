@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaTrashAlt } from 'react-icons/fa';
-import arrayMove from 'array-move';
 import { Primitive } from '@opuscapita/oc-cm-common-layouts';
 import { FloatingSelectPortal } from '@opuscapita/react-floating-select';
 import List from '../../src/index';
 import { getNewColumnItem } from '../constants/data';
 import getCountryOptions from '../constants/countries';
+import { arrayMove } from './demo-utils';
 
 const Select = styled(FloatingSelectPortal)`
   width: 100%;
