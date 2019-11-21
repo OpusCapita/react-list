@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import arrayMove from 'array-move';
 import Checkbox from '@opuscapita/react-checkbox';
 import List from '../../src/index';
 import { getGroupData } from '../constants/data';
+import { arrayMove } from './demo-utils';
 
 const ItemTextContainer = styled.span`
   text-overflow: ellipsis;

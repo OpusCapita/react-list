@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import arrayMove from 'array-move';
+import { arrayMove } from './demo-utils';
 import List from '../../src/index';
 import { getSimpleData, getColumnData } from '../constants/data';
 

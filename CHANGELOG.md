@@ -3,6 +3,7 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## next
+* Remove `arrayMove` from the demos (incompatible with IE11)
 
 ## 1.2.1 
 * Upgrade packages
