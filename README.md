@@ -58,7 +58,9 @@ Also you need to configure sass loader, since all the styles are in sass format.
 | isIndexColumnVisible      | boolean                 | false                                        | Is index column visible                     |
 | isItemBorderVisible       | boolean                 | true                                         | Is border visible between items             |
 | isSortable                | boolean                 | false                                        | Enable drag'n'drop sorting                  |
+| showOnlySelectedInitialValue | boolean              | false                                        | Show only selected checkbox initial state   |
 | onSelectedChange          | function                | (selectedIds: array)                         | Callback for selected items change          |
+| onShowOnlySelectedChange  | function                | (showOnlySelected: bool)                     | Callback for Show only selected change      |
 | onRowClick                | function                | (item: object, rowIndex: number)             | Callback for row click                      |
 | onRowDoubleClick          | function                | (item: object, rowIndex: number)             | Callback for row double click               |
 | onRowContextMenu          | function                | (item: object, rowIndex: number)             | Callback for row context menu (right click) |

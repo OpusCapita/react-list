@@ -3,6 +3,9 @@
 * In general follow (https://docs.npmjs.com/getting-started/semantic-versioning) versioning.
 
 ## next
+
+## 1.3.0
+* Add callback for "Show only selected" checkbox change
 * Remove `arrayMove` from the demos (incompatible with IE11)
 
 ## 1.2.1 
