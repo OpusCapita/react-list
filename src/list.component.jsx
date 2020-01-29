@@ -69,9 +69,11 @@ class List extends React.PureComponent {
     isItemBorderVisible: PropTypes.bool,
     isAllSelected: PropTypes.bool,
     isSortable: PropTypes.bool,
+    isShowOnlySelectedPassed: PropTypes.bool,
 
     // actions
     onSelectedChange: PropTypes.func,
+    onShowOnlySelectedChange: PropTypes.func,
     onRowClick: PropTypes.func,
     onRowDoubleClick: PropTypes.func,
     onRowContextMenu: PropTypes.func,
@@ -109,7 +111,9 @@ class List extends React.PureComponent {
     isItemBorderVisible: true,
     isAllSelected: null,
     isSortable: false,
+    isShowOnlySelectedPassed: false,
     onSelectedChange: () => {},
+    onShowOnlySelectedChange: () => {},
     onRowClick: () => {},
     onRowDoubleClick: () => {},
     onRowContextMenu: () => {},
@@ -123,7 +127,7 @@ class List extends React.PureComponent {
     super(props);
     this.state = {
       searchKeyword: '',
-      showOnlySelected: false,
+      showOnlySelected: props.isShowOnlySelectedPassed,
     };
   }
 
@@ -163,7 +167,11 @@ class List extends React.PureComponent {
 
   handleShowOnlySelectedChange = () => {
     const { showOnlySelected } = this.state;
+    const { onShowOnlySelectedChange } = this.props;
     this.setState({ showOnlySelected: !showOnlySelected });
+    if (onShowOnlySelectedChange) {
+      onShowOnlySelectedChange(!showOnlySelected);
+    }
   };
 
   filter = () => {
