@@ -4,7 +4,7 @@
 
 ## next
 
-## 1.2.2
+## 1.3.0
 * Add callback for "Show only selected" checkbox change
 * Remove `arrayMove` from the demos (incompatible with IE11)
 
