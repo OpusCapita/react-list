@@ -168,7 +168,7 @@ class List extends React.PureComponent {
   handleShowOnlySelectedChange = () => {
     const { showOnlySelected } = this.state;
     const { onShowOnlySelectedChange } = this.props;
-    this.setState({ showOnlySelected: !showOnlySelected });
+    this.setState(prevState => ({ showOnlySelected: !prevState.showOnlySelected }));
     if (onShowOnlySelectedChange) {
       onShowOnlySelectedChange(!showOnlySelected);
     }
